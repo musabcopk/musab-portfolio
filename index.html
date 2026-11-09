@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Musab & Co. Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0f12;--p:#10171b;--ln:#1c272d;--ink:#e6edf0;--mu:#8a98a1;--tl:#2dd4bf;--up:#22c55e;--dn:#ef4444}
+*{box-sizing:border-box;margin:0}
+html,body{color:var(--ink);font:14px/1.5 Inter,system-ui,sans-serif}
+body{background:radial-gradient(900px 420px at 12% -5%,rgba(20,184,166,.16),transparent),radial-gradient(700px 360px at 95% 10%,rgba(96,165,250,.08),transparent),var(--bg);min-height:100vh}
+header{position:sticky;top:0;z-index:5;background:rgba(11,15,18,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--ln)}
+.hi,main{max-width:1180px;margin:auto;padding:0 18px}
+.hi{padding-top:12px;padding-bottom:12px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.logo{display:flex;gap:8px;align-items:center;font-weight:700;font-size:18px}
+nav{display:flex;gap:2px;flex-wrap:wrap}
+nav button{background:none;border:0;color:var(--ink);font:inherit;font-weight:500;padding:7px 12px;border-radius:8px;cursor:pointer}
+nav button:hover{background:#151f24}nav button.on{color:var(--tl)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--tl);outline-offset:2px}
+main{padding-bottom:60px}
+h1{font-size:26px;margin:24px 0 2px;letter-spacing:-.5px}.sub{color:var(--mu);margin-bottom:16px}
+h3{font-size:15px;margin-bottom:12px}
+.card,.k{background:var(--p);border:1px solid var(--ln);border-radius:16px;padding:18px}
+.k{border-top:3px solid var(--a,var(--ln))}
+.k small,.lb{color:var(--mu);display:block;font-size:12px}.k strong{font-size:22px;letter-spacing:-.4px;display:block;margin-top:2px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-bottom:14px}
+.two{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));margin-bottom:14px}
+.top{display:grid;gap:14px;grid-template-columns:1.25fr 1fr;margin-bottom:14px}
+@media(max-width:820px){.top{grid-template-columns:1fr}}
+.pos{color:var(--up)}.neg{color:var(--dn)}
+.pill{display:inline-block;padding:0 8px;border-radius:8px;font-size:12px;margin-left:6px;background:rgba(255,255,255,.07);color:var(--mu)}
+.pill.pos{background:rgba(34,197,94,.14)}.pill.neg{background:rgba(239,68,68,.14)}
+.big{font-size:40px;font-weight:700;color:var(--tl);letter-spacing:-1px;line-height:1.2}
+.st3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;border:1px solid var(--ln);border-radius:12px;margin:14px 0}
+.st3>div{padding:12px}.st3>div+div{border-left:1px solid var(--ln)}.st3 b{display:block;font-size:18px}
+.perf{border:1px solid var(--ln);border-radius:12px;padding:10px 12px;color:var(--mu);font-size:13px}.perf b{color:var(--ink)}
+.tg{display:inline-flex;background:#0b1114;border:1px solid var(--ln);border-radius:999px;padding:3px;float:right}
+.tg button{background:none;border:0;color:var(--mu);font:inherit;font-size:12px;padding:3px 12px;border-radius:999px;cursor:pointer}.tg button.on{background:#0f766e;color:#fff}
+.dn{position:relative;width:200px;height:200px;margin:8px auto 12px}
+.dn svg{width:100%;height:100%}.dn circle[data-seg]{transition:opacity .15s,stroke-width .15s}
+.dn.hv circle[data-seg]{opacity:.4}.dn circle[data-seg].on{opacity:1;stroke-width:29}
+.dc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;padding:0 38px}
+.dc b{font-size:22px;line-height:1.2}.dc small{color:var(--mu);font-size:11px}
+.lr{display:flex;justify-content:space-between;padding:4px 0;font-size:13px}.lr i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px}.lr b{font-weight:500}
+.lgd .x{display:none}.lgd.open .x{display:flex}
+.lk{background:none;border:0;color:var(--tl);font:inherit;font-size:12px;cursor:pointer;padding:4px 0}
+svg text{fill:var(--mu);font-size:11px;font-family:inherit}
+.hc .vl,.hc .dt{opacity:0}.hc:hover .vl,.hc:hover .dt{opacity:1}
+.bs g:hover rect{filter:brightness(1.3)}
+.hr{display:grid;grid-template-columns:54px 1fr 92px;gap:10px;align-items:center;padding:5px 0;font-size:13px}.hr b{text-align:right;font-weight:500}
+.tr{height:10px;background:#162026;border-radius:6px;overflow:hidden}.tr i{display:block;height:100%;border-radius:6px}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
+th,td{padding:10px 8px;text-align:right;border-bottom:1px solid var(--ln);vertical-align:middle}th:first-child,td:first-child{text-align:left}
+th{color:var(--mu);font-weight:500;font-size:12px}td small{display:block;color:var(--mu);font-size:11px}
+.hd{display:flex;gap:10px;align-items:center}.hd b{display:block}
+.av{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:11px;color:#06201c}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+input,select{background:#0b1114;border:1px solid var(--ln);color:var(--ink);padding:8px 10px;border-radius:10px;font:inherit}
+.edit input,.row input{width:100%;margin-top:3px}.edit label{display:block;font-size:12px;color:var(--mu);margin-bottom:8px}
+.row{display:flex;gap:6px;margin-bottom:6px}.row input{margin:0;min-width:0}
+.btn{background:var(--tl);color:#04211d;border:0;border-radius:10px;padding:8px 14px;font:inherit;font-weight:600;cursor:pointer}
+.btn.alt{background:transparent;color:var(--ink);border:1px solid var(--ln)}
+.chip{background:#0b1114;border:1px solid var(--ln);color:var(--ink);border-radius:999px;padding:4px 14px;font:inherit;font-size:13px;cursor:pointer}.chip.on{background:#0f766e;border-color:#0f766e}
+.nw{background:var(--p);border:1px solid var(--ln);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+.nh{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--mu);margin-bottom:6px}
+.tk{background:rgba(45,212,191,.14);color:var(--tl);padding:1px 8px;border-radius:6px;font-weight:600}
+.pd{color:var(--c);display:inline-flex;align-items:center;gap:5px}.pd:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
+.stt{margin-left:auto}.stt.ok{color:var(--up)}
+.nw h4{font-size:15px;margin-bottom:4px}.nw p{color:#b4c0c6;font-size:13px}.nw a{color:var(--tl);font-size:12px;text-decoration:none}
+.empty{color:var(--mu);padding:8px 0}
+#tip{position:fixed;pointer-events:none;background:#0b0f12;border:1px solid var(--ln);border-radius:8px;padding:6px 10px;font-size:12px;opacity:0;z-index:20;line-height:1.5}
+</style>
+</head>
+<body>
+<header><div class="hi">
+  <div class="logo"><svg width="24" height="22" viewBox="0 0 24 22"><rect x="2" y="12" width="5" height="9" rx="1.5" fill="#2dd4bf"/><rect x="9.5" y="6" width="5" height="15" rx="1.5" fill="#60a5fa"/><rect x="17" y="1" width="5" height="20" rx="1.5" fill="#f5b942"/></svg>Musab &amp; Co.</div>
+  <nav id="nav"></nav>
+</div></header>
+<main id="app"></main>
+<div id="tip"></div>
+
+<script>
+/* ---------- DATA (edit defaults here, or use the Edit tab) ---------- */
+const KEY='musab_portfolio_v3',NKEY='musab_news_v3';
+const SID='13DoeJE95YBtHFiwn8NTfBt2GipVmqLRDiVVcvZl8X-Q'; // Markets & Portfolio sheet (news)
+const EID='1xAqd6ZzvLIHo3SFy3VdoTXaScCayug9JuttlWEZNlzs'; // Executive sheet (portfolio)
+const AUTO=true; // true = pull both sheets automatically when the page opens
+const DEF={
+ ov:{invested:241569,net:307696,roi:27.37,profit:2646,idle:66220,weekly:1.10},
+ psx:{deposit:215953,invested:215098,div:792,free:148,upd:'6 Nov 6:30 PM',you:-1.38,kse:1.98,hold:[
+  {n:'MEBL',nm:'Meezan Bank Ltd',s:'Banking',q:83,a:479.38,p:550.25,d:-395.91},
+  {n:'UBL',nm:'United Bank Ltd',s:'Banking',q:144,a:416.04,p:425.34,d:-1013.76},
+  {n:'LUCK',nm:'Lucky Cement Ltd',s:'Cement',q:37,a:419.82,p:427.23,d:-273.8},
+  {n:'BOP',nm:'The Bank of Punjab',s:'Banking',q:383,a:31.66,p:30.94,d:-291.08},
+  {n:'PSX',nm:'Pakistan Stock Exchange Ltd',s:'Financial Services',q:987,a:47.205,p:41.48,d:-996.87},
+  {n:'FFC',nm:'Fauji Fertilizer Company Ltd',s:'Fertilizer',q:78,a:512.82,p:562.62,d:-243.36},
+  {n:'TISL',nm:'Tasdeeq Information Services Ltd',s:'Technology',q:232,a:4.953,p:5.03,d:67.28}]},
+ fx:{exness:{inv:15486,cur:10997,free:1450},ibkr:{inv:1514,cur:1473,free:180,hold:[{n:'ACRS',v:1473},{n:'IBKR',v:0}]},funded:{inv:8120,cur:11023},pmex:{inv:0,cur:48,free:0}},
+ cr:{binance:{inv:0,cur:0,free:0},mexc:{inv:0,cur:0,free:0},trust:{inv:0,cur:0,free:0},metamask:{inv:0,cur:0,free:0},nova:{inv:0,cur:0,free:0}},
+ hist:[['27 Jun',345427],['4 Jul',362882],['11 Jul',356353],['18 Jul',342352],['25 Jul',324409],['1 Aug',334424],['8 Aug',348709],['15 Aug',343201],['22 Aug',321213],['29 Aug',336091],['5 Sep',330185],['12 Sep',330369],['19 Sep',330709],['26 Sep',331702],['3 Oct',325284],['10 Oct',318522],['17 Oct',315932],['24 Oct',300245],['31 Oct',307696],['7 Nov',307696]],
+ cap:[['21-Aug-2026','TAOUSDT > USDT','Withdraw',17399,'$60.92 withdrawn due to mishandling of business funds'],['19-Sep-2026','TAOUSDT > USDT','Withdraw',11391,'Withdrawn for instalments'],['19-Sep-2026','SLVONUSDT > USDT','Withdraw',24436,'Withdrawn for investment in AKDSL'],['25-Sep-2026','AKDSL > Free Cash PKR','Withdraw',23300,'Free cash from AKDSL taken as loan'],['6-Oct-2026','IBKR > Fasset > USDT > PKR','Withdraw',3560,'Profit from IBKR for PSX brokers CGT etc']]
+};
+/* News fallback: [date, affects, headline, detail, priority C/H/M/L/I, status D/P, link] */
+const NEWS0=[
+['7-Nov-26','All Platforms','PKCERT warns of AI-enabled cyber threats to financial institutions','National CERT advisory NCA-26.051126.','C','P','https://pkcert.gov.pk/advisory/26/26.pdf'],
+['30-Oct-26','Binance','Binance security incident','Binance posted incident updates on 30 Oct. Check exposure and withdrawals.','C','P','https://www.binance.com/en/support/announcement/detail/c5a8729a97ac486d963784d96c5642d7'],
+['30-Oct-26','BOP','BOP gets SBP and SECP approval for up to Rs 30bn equity injection from Punjab govt','First tranche up to Rs 20bn at Rs 38.20 or market plus 5%, by 31 Dec 2026. Impact: mixed.','H','P','https://dps.psx.com.pk/download/document/288277.pdf'],
+['26-Oct-26','Banks','SBP raises policy rate by 50 bps to 12%','Effective 27 Oct on inflation and energy price risks. Direct for BOP, MEBL, UBL.','H','P','https://www.sbp.org.pk/assets/document/publications/MPS-Oct-2026-Eng.pdf'],
+['26-Oct-26','BOP','BOP Q3 profit falls 2.9%, no dividend','PAT Rs 4.997B vs Rs 5.145B, EPS 1.53 vs 1.57. Impact: negative.','H','P','https://dps.psx.com.pk/download/document/286909.pdf'],
+['26-Oct-26','MEBL','Meezan Bank declares Rs 8 interim cash dividend','Books closed 4 to 5 Nov 2026. Payment date not announced yet.','M','P','https://dps.psx.com.pk/download/document/286843.pdf'],
+['22-Oct-26','MEBL','Meezan nine-month profit up 5.9% to Rs 74.65bn','Q3 profit up 11.3%. Interim dividend Rs 8 declared.','H','D','https://dps.psx.com.pk/download/document/286477.pdf'],
+['29-Oct-26','LUCK','Lucky Cement quarterly profit lower, approves Karachi capacity expansion','1QFY27 consolidated profit down about 4%. Impact: negative.','H','P','https://dps.psx.com.pk/download/document/287455.pdf'],
+['27-Oct-26','LUCK','Lucky Cement consortium shortlisted for IESCO privatization due diligence','Proposed 51% to 100% equity in IESCO with management control.','H','P','https://dps.psx.com.pk/download/document/287015.pdf'],
+['28-Oct-26','FFC','FFC declares Rs 18.50 interim dividend on higher profit','Dividend upcoming 8 Nov 2026.','M','P','https://dps.psx.com.pk/download/document/287242.pdf'],
+['3-Nov-26','FFC','FFC Q3 briefing: nine-month profit Rs 64.2bn, up 12%','Watch inventory (Rs 87.8bn) and borrowings (Rs 84.1bn).','H','P','https://dps.psx.com.pk/download/document/288589.pdf'],
+['28-Oct-26','PSX','PSX Ltd quarterly profit lower, nil bonus and dividend','Unaudited quarter to 30 Sep 2026.','H','P','https://dps.psx.com.pk/download/document/287134.pdf'],
+['26-Oct-26','TISL','TISL EOGM on 16 Nov to approve ESOP and capital increase','Books closed 9 to 16 Nov. Option pool can dilute holders by up to 10%.','M','P','https://dps.psx.com.pk/download/document/286853.pdf'],
+['23-Oct-26','TISL','TISL first quarter profit up 278%, no dividend','Profit Rs 48.0m vs Rs 12.7m. EPS 0.05 vs 0.02.','M','D','https://dps.psx.com.pk/download/document/286780.pdf'],
+['6-Nov-26','UBL','UBL executive buys 160 shares at Rs 434','Cumulative holding 2,250 shares. Very small.','M','P','https://dps.psx.com.pk/download/image/288752-1.gif'],
+['30-Oct-26','Banks','Foreigners sold Rs 6.22B on 30 Oct, mostly in the negotiated deal market','Ordinary-market foreign selling about Rs 472M. Week 26 to 30 Oct: net Rs 10.56B, banks Rs 3.43B.','L','P',''],
+['2-Nov-26','All PSX','NCCPL cuts the lowest CGT fee slab to nil','Check which slab your accounts fall in.','M','P','https://dps.psx.com.pk/download/attachment/288375-1.pdf'],
+['22-Oct-26','All PSX','PSX proposes a single stock options market','No effect on current holdings. Trading fee Rs 7 per Rs 100,000.','H','D','https://dps.psx.com.pk/download/attachment/286452-1.pdf']];
+
+const clone=o=>JSON.parse(JSON.stringify(o));
+let S;try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!S||!S.psx||!S.psx.hold||!('q' in (S.psx.hold[0]||{q:0})))S=clone(DEF);
+S.cap=S.cap||clone(DEF.cap);S.hist=S.hist||clone(DEF.hist);
+let NEWS=NEWS0;try{const c=JSON.parse(localStorage.getItem(NKEY));if(c&&c.length)NEWS=c}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const $=(s,e=document)=>e.querySelector(s);
+const n=v=>isFinite(+v)?+v:0;
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fm=v=>(n(v)<0?'-':'')+'Rs '+Math.abs(Math.round(n(v))).toLocaleString('en-US');
+const num=v=>(v<0?'-':'+')+Math.abs(v).toLocaleString('en-US',{maximumFractionDigits:2});
+const pc=v=>v==null?'n/a':(v>0?'+':'')+n(v).toFixed(2)+'%';
+const cmp=v=>Math.abs(v)>=1e6?(v/1e6).toFixed(1)+'M':Math.abs(v)>=1e3?Math.round(v/1e3)+'k':Math.round(v);
+const roi=(i,c)=>n(i)>0?(n(c)-n(i))/n(i)*100:null;
+const tone=v=>v==null?'':v>0?'pos':v<0?'neg':'';
+const pill=v=>`<span class="pill ${tone(v)}">${pc(v)} ${v>=0?'↗':'↘'}</span>`;
+const gp=p=>p.split('.').reduce((o,k)=>o&&o[k],S);
+const FX=['exness','ibkr','funded','pmex'],CR=['binance','mexc','trust','metamask','nova'];
+const NAME={exness:'Exness',ibkr:'IBKR',funded:'Funded Squad',pmex:'PMEX',binance:'Binance',mexc:'MEXC',trust:'Trust Wallet',metamask:'MetaMask',nova:'Nova Wallet'};
+const PC={exness:'#4f7cff',ibkr:'#38bdf8',funded:'#6366f1',pmex:'#22d3ee',binance:'#f5b942',mexc:'#c084fc',trust:'#8b5cf6',metamask:'#fb923c',nova:'#f472b6'};
+const COL=['#2dd4bf','#60a5fa','#f5b942','#f472b6','#a78bfa','#fb923c','#34d399','#38bdf8'];
+const CC=p=>p=='ov'?'#2fbf9b':p=='psx'?'#2dd4bf':PC[p.split('.')[1]];
+const tot=(g,l)=>l.reduce((a,k)=>({inv:a.inv+n(S[g][k].inv),cur:a.cur+n(S[g][k].cur),free:a.free+n(S[g][k].free)}),{inv:0,cur:0,free:0});
+const H=()=>S.psx.hold.map(h=>{const v=n(h.q)*n(h.p),c=n(h.q)*n(h.a),t=v-c,d=n(h.d);return{...h,v,c,t,tp:c?t/c*100:0,dp:v-d?d/(v-d)*100:0}});
+const psxCur=()=>H().reduce((a,h)=>a+h.v,0);
+
+/* ---------- 2D CHARTS (SVG) ---------- */
+function donut(items,ctr){
+ const T=items.reduce((a,x)=>a+Math.max(0,x.v),0),R=70,C=2*Math.PI*R;let off=0;
+ const segs=T?items.filter(x=>x.v>0).map(x=>{const L=Math.max(0,x.v/T*C-2);const s=`<circle data-seg data-l="${esc(x.l)}" data-v="${fm(x.v)}" data-p="${(x.v/T*100).toFixed(1)}%" r="${R}" cx="100" cy="100" fill="none" stroke="${x.c}" stroke-width="24" stroke-dasharray="${L} ${C-L}" stroke-dashoffset="${-off}"/>`;off+=x.v/T*C;return s}).join(''):'';
+ return `<div class="dn"><svg viewBox="0 0 200 200"><g transform="rotate(-90 100 100)"><circle r="${R}" cx="100" cy="100" fill="none" stroke="#1a252b" stroke-width="24"/>${segs}</g></svg><div class="dc"><b>${ctr[0]}</b><small>${ctr[1]}</small></div></div>`}
+function legend(items,lim=99){
+ const T=items.reduce((a,x)=>a+Math.max(0,x.v),0)||1,r=items.map((x,i)=>`<div class="lr ${i>=lim?'x':''}"><span><i style="background:${x.c}"></i>${esc(x.l)}</span><b>${(Math.max(0,x.v)/T*100).toFixed(1)}%</b></div>`).join('');
+ return `<div class="lgd">${r}</div>${items.length>lim?`<button class="lk" data-more>+${items.length-lim} more</button>`:''}`}
+function bars(items,w=560,h=250){
+ const M=Math.max(1,...items.map(x=>Math.max(x.a,x.b))),L=44,B=26,T=8,ph=h-B-T,g=(w-L-6)/items.length,bw=Math.min(24,g/3);
+ let s='';for(let i=0;i<=4;i++){const y=T+ph-ph*i/4;s+=`<line x1="${L}" x2="${w}" y1="${y}" y2="${y}" stroke="#1c272d"/><text x="${L-6}" y="${y+4}" text-anchor="end">${cmp(M*i/4)}</text>`}
+ items.forEach((x,i)=>{const cx=L+g*i+g/2,ha=Math.max(0,x.a)/M*ph,hb=Math.max(0,x.b)/M*ph;
+  s+=`<g data-tip="${esc(x.l)}<br>Invested ${fm(x.a)}<br>Current ${fm(x.b)}"><rect x="${cx-bw-2}" y="${T+ph-ha}" width="${bw}" height="${ha}" rx="4" fill="${x.c}" opacity=".4"/><rect x="${cx+2}" y="${T+ph-hb}" width="${bw}" height="${hb}" rx="4" fill="${x.c}"/><rect x="${cx-g/2}" y="${T}" width="${g}" height="${ph}" fill="transparent"/><text x="${cx}" y="${h-8}" text-anchor="middle">${esc(x.l)}</text></g>`});
+ return `<svg class="bs" viewBox="0 0 ${w} ${h}" width="100%">${s}</svg><p class="lb">Light bar is invested, solid bar is current.</p>`}
+function line(pts,w=620,h=250){
+ const vs=pts.map(p=>p[1]),mn=Math.min(...vs),mx=Math.max(...vs),pad=(mx-mn)*.18||1,lo=mn-pad,hi=mx+pad,L=50,B=26,T=8,pw=w-L-8,ph=h-B-T,k=pts.length-1||1;
+ const X=i=>L+pw*i/k,Y=v=>T+ph-(v-lo)/(hi-lo)*ph;
+ const d=pts.map((p,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(p[1]).toFixed(1)).join(' ');
+ let s=`<defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2dd4bf" stop-opacity=".35"/><stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/></linearGradient></defs>`;
+ for(let i=0;i<=4;i++){const v=lo+(hi-lo)*i/4,y=Y(v);s+=`<line x1="${L}" x2="${w}" y1="${y}" y2="${y}" stroke="#1c272d"/><text x="${L-6}" y="${y+4}" text-anchor="end">${cmp(v)}</text>`}
+ s+=`<path d="${d} L${X(pts.length-1)} ${T+ph} L${L} ${T+ph}Z" fill="url(#ag)"/><path d="${d}" fill="none" stroke="#2dd4bf" stroke-width="2.5" stroke-linejoin="round"/>`;
+ pts.forEach((p,i)=>{const cw=pw/k;s+=`<g class="hc" data-tip="${esc(p[0])}<br>${fm(p[1])}"><rect x="${X(i)-cw/2}" y="${T}" width="${cw}" height="${ph}" fill="transparent"/><line class="vl" x1="${X(i)}" x2="${X(i)}" y1="${T}" y2="${T+ph}" stroke="#2dd4bf" stroke-dasharray="3 3"/><circle class="dt" cx="${X(i)}" cy="${Y(p[1])}" r="5" fill="#2dd4bf" stroke="#0b0f12" stroke-width="2"/></g>`});
+ [0,Math.floor(k/2),k].forEach(i=>s+=`<text x="${X(i)}" y="${h-8}" text-anchor="${i==0?'start':i==k?'end':'middle'}">${esc(pts[i][0])}</text>`);
+ return `<svg viewBox="0 0 ${w} ${h}" width="100%">${s}</svg>`}
+function hb(items){
+ const M=Math.max(1,...items.map(x=>Math.abs(x.v)));
+ return items.map(x=>`<div class="hr" data-tip="${esc(x.l)}: ${fm(x.v)}"><span>${esc(x.l)}</span><div class="tr"><i style="width:${Math.abs(x.v)/M*100}%;background:${x.v>=0?'var(--up)':'var(--dn)'}"></i></div><b class="${tone(x.v)}">${num(Math.round(x.v))}</b></div>`).join('')}
+
+/* hover: tooltip + donut centre */
+const tip=$('#tip');
+document.addEventListener('mousemove',e=>{const t=e.target.closest&&e.target.closest('[data-tip]');
+ if(t){tip.innerHTML=t.dataset.tip;tip.style.opacity=1;tip.style.left=Math.min(e.clientX+14,innerWidth-190)+'px';tip.style.top=(e.clientY+14)+'px'}else tip.style.opacity=0});
+document.addEventListener('mouseover',e=>{const s=e.target.closest&&e.target.closest('[data-seg]');if(!s)return;
+ const dn=s.closest('.dn'),dc=$('.dc',dn);if(!dc.dataset.d0)dc.dataset.d0=dc.innerHTML;
+ dc.innerHTML=`<b>${s.dataset.l}</b><small>${s.dataset.v} · ${s.dataset.p}</small>`;dn.classList.add('hv');s.classList.add('on')});
+document.addEventListener('mouseout',e=>{const s=e.target.closest&&e.target.closest('[data-seg]');if(!s)return;
+ const dn=s.closest('.dn');$('.dc',dn).innerHTML=$('.dc',dn).dataset.d0;dn.classList.remove('hv');s.classList.remove('on')});
+
+/* ---------- PAGES ---------- */
+const kpi=(l,v,t='',a='')=>`<div class="k" ${a?`style="--a:${a}"`:''}><small>${l}</small><strong class="${t}">${v}</strong></div>`;
+const line2=(l,v,t='')=>`<div class="lr"><span style="color:var(--mu)">${l}</span><b class="${t}">${v}</b></div>`;
+const head=(t,s)=>`<h1>${t}</h1><p class="sub">${s}</p>`;
+const allocItems=()=>[{l:'PSX',v:psxCur(),c:'#2dd4bf'},{l:'Forex',v:tot('fx',FX).cur,c:'#60a5fa'},{l:'Crypto',v:tot('cr',CR).cur,c:'#a78bfa'},{l:'Idle cash',v:S.ov.idle,c:'#f5b942'}];
+const prevHTML=()=>{const it=allocItems(),T=it.reduce((a,x)=>a+x.v,0);return donut(it,[cmp(T),'TOTAL'])+legend(it)};
+function plat(k,o,hold){
+ const r=roi(o.inv,o.cur);
+ return `<div class="card" style="border-top:3px solid ${PC[k]}"><h3>${NAME[k]}</h3>${line2('Invested amount',fm(o.inv))}${line2('Current amount',fm(o.cur))}${o.free!=null?line2('Free cash',fm(o.free)):''}${line2('ROI',pc(r),tone(r))}
+ ${hold?`<table style="margin-top:10px;min-width:0"><tr><th>Holding</th><th>Value</th></tr>${hold.map(h=>`<tr><td>${esc(h.n)}</td><td>${fm(h.v)}</td></tr>`).join('')}</table>`:''}</div>`}
+const grp=(g,L)=>{const it=L.map(k=>({l:NAME[k],v:S[g][k].cur,c:PC[k]}));return `<div class="two"><div class="card"><h3>Share of capital</h3>${donut(it,[cmp(it.reduce((a,x)=>a+x.v,0)),'CURRENT'])}${legend(it)}</div><div class="card"><h3>Invested vs current</h3>${bars(L.map(k=>({l:NAME[k],a:n(S[g][k].inv),b:n(S[g][k].cur),c:PC[k]})))}</div></div>`};
+
+let psxMode='h',psxQ='',psxSort='c';
+const AVC=['#5eead4','#93c5fd','#fcd34d','#f9a8d4','#c4b5fd','#fdba74','#86efac'];
+function rows(){
+ const q=psxQ.toLowerCase();let L=H().filter(h=>!q||(h.n+' '+h.nm+' '+h.s).toLowerCase().includes(q));
+ const k={v:(a,b)=>b.v-a.v,d:(a,b)=>a.dp-b.dp,t:(a,b)=>b.tp-a.tp};if(k[psxSort])L.sort(k[psxSort]);
+ return L.map((h,i)=>`<tr><td><div class="hd"><span class="av" style="background:${AVC[S.psx.hold.findIndex(x=>x.n==h.n)%7]}">${esc(h.n.slice(0,2))}</span><div><b>${esc(h.n)}</b><small>${esc(h.nm)}</small></div></div></td>
+ <td><b>${fm(h.v)}</b><small>Price ${n(h.p)}</small></td><td class="${tone(h.d)}">${num(n(h.d))}${pill(h.dp)}</td><td class="${tone(h.t)}">${num(Math.round(h.t*100)/100)}${pill(h.tp)}</td><td>${n(h.q)} × ${n(h.a)}<small>Cost ${fm(h.c)}</small></td></tr>`).join('')||'<tr><td colspan="5" class="empty">No holdings match.</td></tr>'}
+const PAGES={
+ ov(){const t1=tot('fx',FX),t2=tot('cr',CR),o=S.ov,it=allocItems();
+  return head('Net worth overview','Hover any chart for exact values.')+`<div class="bar"><button class="btn" id="so">Sync from sheet</button><span class="lb" id="os">${esc(M.os||'')}</span></div>`+
+  `<div class="grid">${kpi('Invested amount',fm(o.invested),'','#f5b942')}${kpi('Total net worth',fm(o.net),'','#2dd4bf')}${kpi('Net worth ROI',pc(o.roi),tone(o.roi),'#60a5fa')}${kpi('Net profit',fm(o.profit),tone(o.profit),'#f472b6')}${kpi('Net idle cash',fm(o.idle),'','#a78bfa')}${kpi('Weekly ROI',pc(o.weekly),tone(o.weekly),'#fb923c')}</div>
+  <div class="two"><div class="card"><h3>Where the money sits</h3>${donut(it,[cmp(it.reduce((a,x)=>a+x.v,0)),'TOTAL'])}${legend(it)}</div>
+  <div class="card"><h3>Net worth trend</h3>${line(S.hist)}</div></div>
+  <div class="card"><h3>Invested vs current by department</h3>${bars([{l:'PSX',a:n(S.psx.invested),b:psxCur(),c:'#2dd4bf'},{l:'Forex',a:t1.inv,b:t1.cur,c:'#60a5fa'},{l:'Crypto',a:t2.inv,b:t2.cur,c:'#a78bfa'}],900,230)}</div>
+  ${S.cap&&S.cap.length?`<div class="card" style="margin-top:14px"><h3>Capital movements</h3><div class="tw"><table><thead><tr><th>Date</th><th>Asset</th><th>Type</th><th>Amount</th><th style="text-align:left">Note</th></tr></thead><tbody>${S.cap.map(c=>`<tr><td>${esc(c[0])}</td><td>${esc(c[1])}</td><td>${esc(c[2])}</td><td>${fm(c[3])}</td><td style="text-align:left">${esc(c[4])}</td></tr>`).join('')}</tbody></table></div></div>`:''}`},
+ psx(){
+  const L=H(),p=S.psx,V=L.reduce((a,h)=>a+h.v,0),C=L.reduce((a,h)=>a+h.c,0),D=L.reduce((a,h)=>a+n(h.d),0),T=V-C,dp=V-D?D/(V-D)*100:0,tp=C?T/C*100:0,gap=n(p.kse)-n(p.you);
+  let it;if(psxMode=='h')it=L.slice().sort((a,b)=>b.v-a.v).map((h,i)=>({l:h.n,v:h.v,c:COL[i%8]}));
+  else{const m={};L.forEach(h=>m[h.s]=(m[h.s]||0)+h.v);it=Object.entries(m).sort((a,b)=>b[1]-a[1]).map(([l,v],i)=>({l,v,c:COL[i%8]}))}
+  const st=(l,v,pv,sub)=>`<div><small class="lb">${l}</small><b class="${tone(v)}">${v>0?'+':v<0?'-':''}Rs ${Math.abs(Math.round(v)).toLocaleString('en-US')}</b>${pv!=null?pill(pv):''}${sub?`<small class="lb">${sub}</small>`:''}</div>`;
+  return `<h1>Portfolio</h1><p class="sub">Pakistan Stock Exchange holdings. <span class="pill">Updated ${esc(p.upd)}</span></p>
+  <div class="top"><div class="card"><span class="lb">CURRENT MARKET VALUE</span><div class="big">${fm(V)}</div><p class="lb">musab.co.pk · ${L.length} holdings</p>
+   <div class="st3">${st("Day's P&L",D,dp)}${st('Total P&L',T,tp)}<div><small class="lb">Total cost</small><b>${fm(C)}</b><small class="lb">Invested capital</small></div></div>
+   <div class="perf">PERFORMANCE VS BENCHMARK &nbsp; You <b class="${tone(p.you)}">${pc(p.you)}</b> vs KSE 100 <b class="${tone(p.kse)}">${pc(p.kse)}</b> &nbsp; ${gap>=0?'Trailing':'Ahead'} by <b>${Math.abs(gap).toFixed(1)}%</b> since Sep '26</div></div>
+   <div class="card"><div class="tg"><button data-mode="h" class="${psxMode=='h'?'on':''}">Holding</button><button data-mode="s" class="${psxMode=='s'?'on':''}">Sector</button></div><span class="lb">ALLOCATION</span>${donut(it,[it.length,psxMode=='h'?'HOLDINGS':'SECTORS'])}${legend(it,5)}</div></div>
+  <div class="grid">${kpi('Initial deposit',fm(p.deposit),'','#2dd4bf')}${kpi('Invested amount',fm(p.invested),'','#60a5fa')}${kpi('Total dividends',fm(p.div),'','#f5b942')}${kpi('Free cash on brokers',fm(p.free),'','#f472b6')}</div>
+  <div class="card" style="margin-bottom:14px"><h3>Cost vs market value</h3>${bars(L.map((h,i)=>({l:h.n,a:h.c,b:h.v,c:COL[i%8]})),900,240)}</div>
+  <div class="two"><div class="card"><h3>Total P&amp;L by stock</h3>${hb(L.map(h=>({l:h.n,v:h.t})))}</div><div class="card"><h3>Day's P&amp;L by stock</h3>${hb(L.map(h=>({l:h.n,v:n(h.d)})))}</div></div>
+  <div class="card"><div class="bar"><h3 style="margin:0;flex:1">Shares in hand</h3><select id="ss" aria-label="Sort"><option value="c">Custom order</option><option value="v">Market value</option><option value="d">Day's P&amp;L %</option><option value="t">Total P&amp;L %</option></select><input id="sq" placeholder="Search symbol, company or sector" value="${esc(psxQ)}"></div>
+  <div class="tw"><table><thead><tr><th>Holding</th><th>Market value</th><th>Day's P&amp;L</th><th>Total P&amp;L</th><th>Position</th></tr></thead><tbody id="hb">${rows()}</tbody></table></div></div>`},
+ fx(){const t=tot('fx',FX),r=roi(t.inv,t.cur);
+  return head('Forex platforms','Exness, IBKR, Funded Squad and PMEX in PKR.')+
+  `<div class="grid">${kpi('Total invested',fm(t.inv),'','#60a5fa')}${kpi('Total current',fm(t.cur),'','#2dd4bf')}${kpi('Total free cash',fm(t.free),'','#f5b942')}${kpi('Forex ROI',pc(r),tone(r),'#f472b6')}</div>${grp('fx',FX)}
+  <div class="two">${FX.map(k=>plat(k,S.fx[k],k=='ibkr'?S.fx.ibkr.hold:null)).join('')}</div>`},
+ cr(){const t=tot('cr',CR),r=roi(t.inv,t.cur);
+  return head('Crypto platforms','Exchanges and wallets.')+
+  `<div class="grid">${kpi('Total invested',fm(t.inv),'','#a78bfa')}${kpi('Total current',fm(t.cur),'','#2dd4bf')}${kpi('Total free cash',fm(t.free),'','#f5b942')}${kpi('Crypto ROI',pc(r),tone(r),'#f472b6')}</div>
+  ${t.cur+t.inv+t.free==0?'<p class="empty">All crypto accounts are empty right now. Add values in the Edit tab and the charts fill in.</p>':''}${grp('cr',CR)}
+  <div class="two">${CR.map(k=>plat(k,S.cr[k])).join('')}</div>`},
+ news(){
+  const ch=['All','Critical','High','MEBL','UBL','LUCK','BOP','PSX','FFC','TISL'];
+  return head('News and announcements','Pulled from the Musab &amp; Co. Markets sheet (Daily Report).')+
+  `<div class="bar"><button class="btn" id="sn">Sync from sheet</button><span class="lb" id="ns">${esc(M.ns||NEWS.length+' items')}</span><input id="nq" placeholder="Search news" value="${esc(nq)}" style="margin-left:auto"></div>
+  <div class="bar">${ch.map(c=>`<button class="chip ${nf==c?'on':''}" data-nf="${c}">${c}</button>`).join('')}</div><div id="nl">${newsHTML()}</div>`},
+ edit(){
+  const I3=[['Invested amount','inv'],['Current amount','cur'],['Free cash','free']],I2=I3.slice(0,2);
+  const G=[['Overview','ov',[['Invested amount','invested'],['Total net worth','net'],['Net worth ROI %','roi'],['Net profit','profit'],['Net idle cash','idle'],['Weekly ROI %','weekly']]],
+   ['PSX portfolio','psx',[['Initial deposit','deposit'],['Invested amount','invested'],['Total dividends','div'],['Free cash on brokers','free'],['Last updated','upd',1],['Your return % vs benchmark','you'],['KSE 100 return %','kse']]],
+   ...FX.map(k=>[NAME[k],'fx.'+k,k=='funded'?I2:I3]),...CR.map(k=>[NAME[k],'cr.'+k,I3])];
+  const list=(t,p,cols,hint)=>`<div class="card"><h3>${t}</h3><p class="lb" style="margin-bottom:8px">${hint}</p>${gp(p).map((h,i)=>`<div class="row">${cols.map(([k,ty])=>`<input ${ty?'':'type="number" step="any"'} data-p="${p}.${i}.${k}" value="${esc(h[k])}" aria-label="${k}">`).join('')}<button class="btn alt" data-del="${p}.${i}" aria-label="Remove">x</button></div>`).join('')}<button class="btn alt" data-add="${p}">Add holding</button></div>`;
+  return head('Edit your numbers','Changes save in this browser and update every chart. Export a backup before clearing browser data.')+
+  `<div class="bar"><button class="btn" id="sync">Auto-fill overview from sections</button><button class="btn alt" id="exp">Export JSON</button><button class="btn alt" id="imp">Import JSON</button><button class="btn alt" id="rst">Reset to defaults</button><input type="file" id="file" accept=".json" hidden></div>
+  <div class="card" style="margin-bottom:14px"><h3>Live preview</h3><div id="pv">${prevHTML()}</div></div>
+  <div class="two edit">${G.map(([t,p,f])=>`<div class="card" style="border-top:3px solid ${CC(p)}"><h3>${t}</h3>${f.map(([l,k,tx])=>`<label>${l}<input ${tx?'':'type="number" step="any"'} data-p="${p}.${k}" value="${esc(gp(p+'.'+k))}"></label>`).join('')}</div>`).join('')}
+  ${list('PSX holdings','psx.hold',[['n',1],['q'],['a'],['p'],['d']],'Ticker, quantity, average cost, price, day P&amp;L (Rs)')}${list('IBKR holdings','fx.ibkr.hold',[['n',1],['v']],'Name, value (Rs)')}</div>`}
+};
+
+/* ---------- NEWS ---------- */
+let nf='All',nq='';
+const MO={jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+const parseD=s=>{const m=String(s).match(/(\d+)[-\s]+([A-Za-z]{3})\w*[-\s,]+(\d+)/);return m?new Date(m[3].length==2?2000+ +m[3]:+m[3],MO[m[2].toLowerCase()],+m[1]).getTime():0};
+const PRN={C:['Critical','#ef4444'],H:['High','#fb923c'],M:['Medium','#f5b942'],L:['Low','#22c55e'],I:['Info','#8a98a1']};
+function newsHTML(){
+ const q=nq.toLowerCase();
+ const L=NEWS.slice().sort((a,b)=>parseD(b[0])-parseD(a[0])).filter(x=>{
+  const t=(x[1]+' '+x[2]).toUpperCase().replace(/ALL PSX/g,'');
+  const ok=nf=='All'||(nf=='Critical'?x[4]=='C':nf=='High'?x[4]=='H':new RegExp('\\b'+nf+'\\b').test(t));
+  return ok&&(!q||x.join(' ').toLowerCase().includes(q))});
+ return L.map(x=>{const p=PRN[x[4]]||PRN.L;return `<article class="nw"><div class="nh"><span class="tk">${esc(x[1]||'General')}</span><span class="pd" style="--c:${p[1]}">${p[0]}</span><span>${esc(x[0])}</span><span class="stt ${x[5]=='D'?'ok':''}">${x[5]=='D'?'Done':'Pending'}</span></div><h4>${esc(x[2])}</h4><p>${esc(x[3])}</p>${/^https?:/.test(x[6])?`<a href="${esc(x[6])}" target="_blank" rel="noopener">Source</a>`:''}</article>`}).join('')||'<p class="empty">No news matches.</p>'}
+function csv(t){const R=[];let r=[],c='',q=false;for(let i=0;i<t.length;i++){const ch=t[i];if(q){if(ch=='"'){if(t[i+1]=='"'){c+='"';i++}else q=false}else c+=ch}else if(ch=='"')q=true;else if(ch==','){r.push(c);c=''}else if(ch=='\n'){r.push(c);R.push(r);r=[];c=''}else if(ch!='\r')c+=ch}r.push(c);R.push(r);return R}
+const ROUT=/uploaded|off market|closing rate|daily quotations|stock market report|kse 100 index|nd (accepted|rejected)|daily financial stats|research report/i;
+const prio=s=>/crit/i.test(s)?'C':/high/i.test(s)?'H':/med/i.test(s)?'M':/info/i.test(s)?'I':'L';
+const M={},MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const setMsg=(k,t)=>{M[k]=t;const e=$('#'+k);if(e)e.textContent=t};
+const ERR='Could not read the sheet. Inside the Claude preview this is expected (outside requests are blocked). On your GitHub page it should work. If not, check the sheet is shared as "Anyone with the link can view".';
+const nv=x=>typeof x=='number'?x:parseFloat(String(x).replace(/[^0-9.\-]/g,''))||0;
+const wk=v=>typeof v=='number'?+(v*100).toFixed(2):nv(v);
+/* Reads a Google Sheet tab through a script tag (JSONP), which avoids browser CORS blocks */
+function gq(sid,sheet){return new Promise((res,rej)=>{
+ const cb='gq'+Math.random().toString(36).slice(2),s=document.createElement('script');
+ const cl=()=>{clearTimeout(t);delete window[cb];s.remove()},t=setTimeout(()=>{cl();rej('timeout')},15000);
+ window[cb]=r=>{cl();if(!r||r.status!='ok')return rej('sheet error');
+  res(r.table.rows.map(x=>(x.c||[]).map(c=>{if(!c)return'';let v=c.v;if(typeof v=='string'&&v.indexOf('Date(')==0)v=c.f;return v==null?'':v})))};
+ s.onerror=()=>{cl();rej('blocked')};
+ s.src='https://docs.google.com/spreadsheets/d/'+sid+'/gviz/tq?headers=0&tqx=out:json;responseHandler:'+cb+'&sheet='+encodeURIComponent(sheet);
+ document.head.appendChild(s)})}
+async function syncNews(q){
+ if(!q)setMsg('ns','Syncing...');
+ try{
+  const rows=await gq(SID,'📰 Daily Report'),hi=Math.max(0,rows.findIndex(r=>String(r[0]).trim()=='DATE'));
+  const out=rows.slice(hi+1).filter(r=>r[3]&&parseD(r[0])&&!(!r[4]&&ROUT.test(r[3]))).map(r=>[String(r[0]),String(r[6]||r[2]),String(r[3]),[r[4],r[7]].filter(Boolean).join(' ').slice(0,240),prio(String(r[5]||'')),/done|actioned/i.test(r[9]||'')?'D':'P',/^https?:/.test(r[1])?String(r[1]):'']);
+  if(!out.length)throw 0;NEWS=out;try{localStorage.setItem(NKEY,JSON.stringify(out))}catch(e){}
+  setMsg('ns','Synced '+out.length+' items');if(page=='news')show('news')
+ }catch(e){if(!q)setMsg('ns',ERR)}
+}
+async function syncOv(q){
+ if(!q)setMsg('os','Syncing...');
+ try{
+  const A=await gq(EID,'ASSET_ALLOCATION'),R=A.filter(r=>parseD(r[0])&&nv(r[9]));
+  if(!R.length)throw 0;
+  const L=R[R.length-1],comp=[1,2,3,4,5].reduce((a,i)=>a+nv(L[i]),0);
+  S.hist=R.map(r=>{const d=new Date(parseD(r[0]));return[d.getDate()+' '+MON[d.getMonth()],nv(r[9])]});
+  Object.assign(S.ov,{invested:nv(L[7]),net:nv(L[9]),roi:nv(L[11]),profit:nv(L[8]),idle:nv(L[5]),weekly:wk(L[10])});
+  try{const W=await gq(EID,'WEEKLY_SNAPSHOT'),blk=h=>{const i=W.findIndex(r=>String(r[0]).trim()==h&&String(r[1]).trim()=='CV'),o={};
+    if(i>=0)for(let j=i+1;j<W.length&&String(W[j][0]).trim();j++)o[String(W[j][0]).trim().toLowerCase()]=[nv(W[j][1]),nv(W[j][2])];return o};
+   const f=blk('Forex'),p=blk('PSX');
+   [['exness','exness'],['funded','funded a/c'],['pmex','pmex'],['ibkr','ibkr']].forEach(([k,x])=>{if(f[x]&&f[x][0]>0){S.fx[k].cur=f[x][0];if(S.fx[k].free!=null&&f[x][1]>0)S.fx[k].free=f[x][1]}});
+   if(p.total&&p.total[1])S.psx.free=p.total[1]}catch(e){}
+  try{const C=await gq(EID,'CAPITAL_MOVEMENTS'),c=C.filter(r=>parseD(r[0])).map(r=>[String(r[0]),String(r[1]),String(r[2]),nv(r[3]),String(r[5]||'')]);if(c.length)S.cap=c}catch(e){}
+  save();
+  setMsg('os','Synced. Latest row: '+L[0]+(Math.abs(comp-nv(L[9]))>nv(L[9])*.01?'. Note: net worth in that row is Rs '+Math.round(nv(L[9])).toLocaleString('en-US')+' but its parts add to Rs '+Math.round(comp).toLocaleString('en-US')+', so check the sheet.':''));
+  if(page=='ov'||page=='fx')show(page)
+ }catch(e){if(!q)setMsg('os',ERR)}
+}
+
+/* ---------- ROUTER ---------- */
+const TABS=[['ov','Overview'],['psx','PSX Portfolio'],['fx','Forex'],['cr','Crypto'],['news','News'],['edit','Edit']];
+let page='ov';const app=$('#app');
+$('#nav').innerHTML=TABS.map(([k,l])=>`<button data-t="${k}">${l}</button>`).join('');
+function show(p){
+ page=PAGES[p]?p:'ov';location.hash=page;app.innerHTML=PAGES[page]();
+ document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==page));
+ if(page=='psx')$('#ss').value=psxSort;
+}
+$('#nav').onclick=e=>{if(e.target.dataset.t){show(e.target.dataset.t);scrollTo(0,0)}};
+
+app.addEventListener('input',e=>{
+ const t=e.target;
+ if(t.id=='sq'){psxQ=t.value;$('#hb').innerHTML=rows();return}
+ if(t.id=='nq'){nq=t.value;$('#nl').innerHTML=newsHTML();return}
+ const p=t.dataset.p;if(!p)return;
+ const ks=p.split('.'),last=ks.pop(),o=ks.reduce((a,k)=>a[k],S);
+ o[last]=t.type=='number'?n(t.value):t.value;save();
+ if($('#pv'))$('#pv').innerHTML=prevHTML();
+});
+app.addEventListener('change',e=>{
+ const t=e.target;
+ if(t.id=='ss'){psxSort=t.value;$('#hb').innerHTML=rows()}
+ if(t.id=='file'){const f=t.files[0];if(f)f.text().then(x=>{try{S=JSON.parse(x);save();show('edit')}catch(err){alert('That file is not valid JSON.')}})}
+});
+app.addEventListener('click',e=>{
+ const t=e.target;
+ if(t.dataset.mode){psxMode=t.dataset.mode;show('psx')}
+ if(t.dataset.more){const l=t.previousElementSibling;l.classList.toggle('open');t.textContent=l.classList.contains('open')?'Show less':'+'+l.querySelectorAll('.x').length+' more'}
+ if(t.dataset.nf){nf=t.dataset.nf;show('news')}
+ if(t.id=='sn')syncNews();
+ if(t.id=='so')syncOv();
+ if(t.dataset.add){gp(t.dataset.add).push(t.dataset.add=='psx.hold'?{n:'NEW',nm:'New holding',s:'Other',q:0,a:0,p:0,d:0}:{n:'NEW',v:0});save();show('edit')}
+ if(t.dataset.del){const ks=t.dataset.del.split('.'),i=+ks.pop();gp(ks.join('.')).splice(i,1);save();show('edit')}
+ if(t.id=='sync'){const a=tot('fx',FX),b=tot('cr',CR),o=S.ov,cur=psxCur()+a.cur+b.cur;
+  o.invested=Math.round(n(S.psx.invested)+a.inv+b.inv);o.net=Math.round(cur+o.idle);o.profit=Math.round(cur-o.invested);o.roi=+(o.invested?o.profit/o.invested*100:0).toFixed(2);save();show('edit')}
+ if(t.id=='exp'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,2)],{type:'application/json'}));a.download='portfolio.json';a.click()}
+ if(t.id=='imp')$('#file').click();
+ if(t.id=='rst'&&confirm('Reset all values to defaults?')){S=clone(DEF);save();show('edit')}
+});
+show(location.hash.slice(1)||'ov');
+if(AUTO){syncOv(1);syncNews(1)}
+</script>
+</body>
+</html>
