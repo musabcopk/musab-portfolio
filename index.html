@@ -71,6 +71,14 @@ input,select{background:#0b1114;border:1px solid var(--ln);color:var(--ink);padd
 .nw h4{font-size:15px;margin-bottom:4px}.nw p{color:#b4c0c6;font-size:13px}.nw a{color:var(--tl);font-size:12px;text-decoration:none}
 .empty{color:var(--mu);padding:8px 0}
 #tip{position:fixed;pointer-events:none;background:#0b0f12;border:1px solid var(--ln);border-radius:8px;padding:6px 10px;font-size:12px;opacity:0;z-index:20;line-height:1.5}
+.et{min-width:760px}.et td,.et th{text-align:left;vertical-align:top;font-size:12.5px;min-width:70px;max-width:340px;word-break:break-word}
+.et th{position:sticky;top:0;background:var(--p);z-index:1}
+.et td span{display:block;outline:none;border-radius:4px;padding:1px 3px}.et td span:focus{background:#16222a;box-shadow:0 0 0 1px var(--tl)}
+.et a{color:var(--tl);text-decoration:none}
+.x1{background:none;border:0;color:var(--mu);cursor:pointer;font-size:16px}.x1:hover{color:var(--dn)}
+.md{position:fixed;inset:0;background:rgba(0,0,0,.62);display:grid;place-items:center;z-index:30}.md[hidden]{display:none}
+.mb{background:var(--p);border:1px solid var(--ln);border-radius:16px;padding:18px;width:min(720px,94vw);max-height:84vh;overflow:auto}
+.lr2{display:flex;gap:10px;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--ln);font-size:13px}
 </style>
 </head>
 <body>
@@ -80,16 +88,17 @@ input,select{background:#0b1114;border:1px solid var(--ln);color:var(--ink);padd
 </div></header>
 <main id="app"></main>
 <div id="tip"></div>
+<div id="md" class="md" hidden><div class="mb"><div class="bar"><h3 id="mt" style="margin:0;flex:1"></h3><button class="btn alt" id="mc">Close</button></div><div id="mx"></div></div></div>
 
 <script>
 /* ---------- DATA (edit defaults here, or use the Edit tab) ---------- */
-const KEY='musab_portfolio_v3',NKEY='musab_news_v3';
+const KEY='musab_portfolio_v4',NKEY='musab_news_v3';
 const SID='13DoeJE95YBtHFiwn8NTfBt2GipVmqLRDiVVcvZl8X-Q'; // Markets & Portfolio sheet (news)
 const EID='1xAqd6ZzvLIHo3SFy3VdoTXaScCayug9JuttlWEZNlzs'; // Executive sheet (portfolio)
 const AUTO=true; // true = pull both sheets automatically when the page opens
 const DEF={
- ov:{invested:241569,net:307696,roi:27.37,profit:2646,idle:66220,weekly:1.10},
- psx:{deposit:215953,invested:215098,div:792,free:148,upd:'6 Nov 6:30 PM',you:-1.38,kse:1.98,hold:[
+ ov:{invested:241569,net:313776,roi:29.89,profit:2646,idle:66220,weekly:1.10},
+ psx:{deposit:215953,invested:217103,val:220674.28,pnl:3572,div:792,free:148.33,upd:'6 Nov 6:30 PM',you:-1.38,kse:1.98,hold:[
   {n:'MEBL',nm:'Meezan Bank Ltd',s:'Banking',q:83,a:479.38,p:550.25,d:-395.91},
   {n:'UBL',nm:'United Bank Ltd',s:'Banking',q:144,a:416.04,p:425.34,d:-1013.76},
   {n:'LUCK',nm:'Lucky Cement Ltd',s:'Cement',q:37,a:419.82,p:427.23,d:-273.8},
@@ -97,9 +106,11 @@ const DEF={
   {n:'PSX',nm:'Pakistan Stock Exchange Ltd',s:'Financial Services',q:987,a:47.205,p:41.48,d:-996.87},
   {n:'FFC',nm:'Fauji Fertilizer Company Ltd',s:'Fertilizer',q:78,a:512.82,p:562.62,d:-243.36},
   {n:'TISL',nm:'Tasdeeq Information Services Ltd',s:'Technology',q:232,a:4.953,p:5.03,d:67.28}]},
- fx:{exness:{inv:15486,cur:10997,free:1450},ibkr:{inv:1514,cur:1473,free:180,hold:[{n:'ACRS',v:1473},{n:'IBKR',v:0}]},funded:{inv:8120,cur:11023},pmex:{inv:0,cur:48,free:0}},
+ fx:{exness:{inv:15486,cur:10996.8,free:1450},ibkr:{inv:1514,cur:1473.2,free:179.8,hold:[{n:'ACRS',v:1473.2},{n:'IBKR',v:0}]},funded:{inv:8120,cur:11022.9},pmex:{inv:0,cur:48,free:0}},
+ fxt:{inv:24466,cur:23541,free:1629.8,pnl:-925},
  cr:{binance:{inv:0,cur:0,free:0},mexc:{inv:0,cur:0,free:0},trust:{inv:0,cur:0,free:0},metamask:{inv:0,cur:0,free:0},nova:{inv:0,cur:0,free:0}},
- hist:[['27 Jun',345427],['4 Jul',362882],['11 Jul',356353],['18 Jul',342352],['25 Jul',324409],['1 Aug',334424],['8 Aug',348709],['15 Aug',343201],['22 Aug',321213],['29 Aug',336091],['5 Sep',330185],['12 Sep',330369],['19 Sep',330709],['26 Sep',331702],['3 Oct',325284],['10 Oct',318522],['17 Oct',315932],['24 Oct',300245],['31 Oct',307696],['7 Nov',307696]],
+ weeks:[['27-Jun-26',225584,19682,56591,0,43570,1454,284501,15902,345427,5.59,21.42],['04-Jul-26',241842,26062,51408,0,43570,2028,289676,27609,362882,9.53,25.27],['11-Jul-26',234930,26445,51408,0,43570,2461,289676,20647,356353,7.13,23.02],['18-Jul-26',225545,24175,49062,0,43570,2469,289676,6637,342352,2.29,18.18],['25-Jul-26',219253,24690,49396,0,31070,2387,289676,1276,324409,0.44,11.99],['01-Aug-26',227960,27293,48131,0,31070,2641,289676,11037,334424,3.81,15.45],['08-Aug-26',237318,29414,50907,0,31070,31092,289676,28451,348709,9.82,20.38],['15-Aug-26',232630,28026,51475,0,31070,31306,267676,13149,343201,4.91,28.22],['22-Aug-26',225528,27901,36714,0,31070,30725,250277,9141,321213,3.65,28.34],['29-Aug-26',227702,28207,36613,0,43570,3524,277577,11337,336091,4.08,21.08],['05-Sep-26',223126,28452,35038,0,43570,130176,147484,6966,330185,4.72,4.72],['12-Sep-26',223118,28452,35229,0,43570,3107,281758,11337,330369,4.02,17.25],['19-Sep-26',246359,28281,0,0,56070,26407,244492,3740,330709,1.53,35.26],['26-Sep-26',223405,28928,0,0,79370,2872,244492,4968,331702,2.03,35.67],['03-Oct-26',220975,25588,0,0,78720,1912,241569,3083,325284,1.28,34.65],['10-Oct-26',214652,25150,0,3563,78720,1572,241569,-3338,318522,-1.38,31.86],['17-Oct-26',213783,19867,0,3563,78720,1722,241569,-9641,315932,-3.99,30.78],['24-Oct-26',208508,21955,0,3563,66220,1743,241569,-12849,300245,-5.32,24.29],['31-Oct-26',213146,24768,0,3563,66220,1743,241569,-5397,307696,-2.23,27.37],['07-Nov-26',220823,25171,0,1563,66220,1778,241569,2646,313776,1.10,29.89]],
+ alloc:{psx:220823,forex:25171,crypto:0,ibcw:1563,cash:66220},
  cap:[['21-Aug-2026','TAOUSDT > USDT','Withdraw',17399,'$60.92 withdrawn due to mishandling of business funds'],['19-Sep-2026','TAOUSDT > USDT','Withdraw',11391,'Withdrawn for instalments'],['19-Sep-2026','SLVONUSDT > USDT','Withdraw',24436,'Withdrawn for investment in AKDSL'],['25-Sep-2026','AKDSL > Free Cash PKR','Withdraw',23300,'Free cash from AKDSL taken as loan'],['6-Oct-2026','IBKR > Fasset > USDT > PKR','Withdraw',3560,'Profit from IBKR for PSX brokers CGT etc']]
 };
 /* News fallback: [date, affects, headline, detail, priority C/H/M/L/I, status D/P, link] */
@@ -126,7 +137,7 @@ const NEWS0=[
 const clone=o=>JSON.parse(JSON.stringify(o));
 let S;try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
 if(!S||!S.psx||!S.psx.hold||!('q' in (S.psx.hold[0]||{q:0})))S=clone(DEF);
-S.cap=S.cap||clone(DEF.cap);S.hist=S.hist||clone(DEF.hist);
+S.cap=S.cap||clone(DEF.cap);S.alloc=S.alloc||clone(DEF.alloc);S.weeks=S.weeks||clone(DEF.weeks);S.fxt=S.fxt||clone(DEF.fxt);
 let NEWS=NEWS0;try{const c=JSON.parse(localStorage.getItem(NKEY));if(c&&c.length)NEWS=c}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 const $=(s,e=document)=>e.querySelector(s);
@@ -144,7 +155,7 @@ const FX=['exness','ibkr','funded','pmex'],CR=['binance','mexc','trust','metamas
 const NAME={exness:'Exness',ibkr:'IBKR',funded:'Funded Squad',pmex:'PMEX',binance:'Binance',mexc:'MEXC',trust:'Trust Wallet',metamask:'MetaMask',nova:'Nova Wallet'};
 const PC={exness:'#4f7cff',ibkr:'#38bdf8',funded:'#6366f1',pmex:'#22d3ee',binance:'#f5b942',mexc:'#c084fc',trust:'#8b5cf6',metamask:'#fb923c',nova:'#f472b6'};
 const COL=['#2dd4bf','#60a5fa','#f5b942','#f472b6','#a78bfa','#fb923c','#34d399','#38bdf8'];
-const CC=p=>p=='ov'?'#2fbf9b':p=='psx'?'#2dd4bf':PC[p.split('.')[1]];
+const CC=p=>p=='ov'||p=='alloc'?'#2fbf9b':p=='psx'?'#2dd4bf':p=='fxt'?'#60a5fa':PC[p.split('.')[1]];
 const tot=(g,l)=>l.reduce((a,k)=>({inv:a.inv+n(S[g][k].inv),cur:a.cur+n(S[g][k].cur),free:a.free+n(S[g][k].free)}),{inv:0,cur:0,free:0});
 const H=()=>S.psx.hold.map(h=>{const v=n(h.q)*n(h.p),c=n(h.q)*n(h.a),t=v-c,d=n(h.d);return{...h,v,c,t,tp:c?t/c*100:0,dp:v-d?d/(v-d)*100:0}});
 const psxCur=()=>H().reduce((a,h)=>a+h.v,0);
@@ -173,9 +184,9 @@ function line(pts,w=620,h=250){
  pts.forEach((p,i)=>{const cw=pw/k;s+=`<g class="hc" data-tip="${esc(p[0])}<br>${fm(p[1])}"><rect x="${X(i)-cw/2}" y="${T}" width="${cw}" height="${ph}" fill="transparent"/><line class="vl" x1="${X(i)}" x2="${X(i)}" y1="${T}" y2="${T+ph}" stroke="#2dd4bf" stroke-dasharray="3 3"/><circle class="dt" cx="${X(i)}" cy="${Y(p[1])}" r="5" fill="#2dd4bf" stroke="#0b0f12" stroke-width="2"/></g>`});
  [0,Math.floor(k/2),k].forEach(i=>s+=`<text x="${X(i)}" y="${h-8}" text-anchor="${i==0?'start':i==k?'end':'middle'}">${esc(pts[i][0])}</text>`);
  return `<svg viewBox="0 0 ${w} ${h}" width="100%">${s}</svg>`}
-function hb(items){
- const M=Math.max(1,...items.map(x=>Math.abs(x.v)));
- return items.map(x=>`<div class="hr" data-tip="${esc(x.l)}: ${fm(x.v)}"><span>${esc(x.l)}</span><div class="tr"><i style="width:${Math.abs(x.v)/M*100}%;background:${x.v>=0?'var(--up)':'var(--dn)'}"></i></div><b class="${tone(x.v)}">${num(Math.round(x.v))}</b></div>`).join('')}
+function hb(items,f){
+ const M=Math.max(1e-9,...items.map(x=>Math.abs(x.v))),F=f||(v=>num(Math.round(v)));
+ return items.map(x=>`<div class="hr" data-tip="${esc(x.l)}: ${f?F(x.v):fm(x.v)}"><span>${esc(x.l)}</span><div class="tr"><i style="width:${Math.abs(x.v)/M*100}%;background:${x.c||(x.v>=0?'var(--up)':'var(--dn)')}"></i></div><b class="${x.c?'':tone(x.v)}">${F(x.v)}</b></div>`).join('')}
 
 /* hover: tooltip + donut centre */
 const tip=$('#tip');
@@ -191,7 +202,7 @@ document.addEventListener('mouseout',e=>{const s=e.target.closest&&e.target.clos
 const kpi=(l,v,t='',a='')=>`<div class="k" ${a?`style="--a:${a}"`:''}><small>${l}</small><strong class="${t}">${v}</strong></div>`;
 const line2=(l,v,t='')=>`<div class="lr"><span style="color:var(--mu)">${l}</span><b class="${t}">${v}</b></div>`;
 const head=(t,s)=>`<h1>${t}</h1><p class="sub">${s}</p>`;
-const allocItems=()=>[{l:'PSX',v:psxCur(),c:'#2dd4bf'},{l:'Forex',v:tot('fx',FX).cur,c:'#60a5fa'},{l:'Crypto',v:tot('cr',CR).cur,c:'#a78bfa'},{l:'Idle cash',v:S.ov.idle,c:'#f5b942'}];
+const allocItems=(a=S.alloc)=>{return[{l:'PSX',v:a.psx,c:'#2dd4bf'},{l:'Forex',v:a.forex,c:'#60a5fa'},{l:'Crypto',v:a.crypto,c:'#a78bfa'},{l:'IBCW',v:a.ibcw,c:'#fb923c'},{l:'Idle cash',v:a.cash,c:'#f5b942'}]};
 const prevHTML=()=>{const it=allocItems(),T=it.reduce((a,x)=>a+x.v,0);return donut(it,[cmp(T),'TOTAL'])+legend(it)};
 function plat(k,o,hold){
  const r=roi(o.inv,o.cur);
@@ -207,12 +218,15 @@ function rows(){
  return L.map((h,i)=>`<tr><td><div class="hd"><span class="av" style="background:${AVC[S.psx.hold.findIndex(x=>x.n==h.n)%7]}">${esc(h.n.slice(0,2))}</span><div><b>${esc(h.n)}</b><small>${esc(h.nm)}</small></div></div></td>
  <td><b>${fm(h.v)}</b><small>Price ${n(h.p)}</small></td><td class="${tone(h.d)}">${num(n(h.d))}${pill(h.dp)}</td><td class="${tone(h.t)}">${num(Math.round(h.t*100)/100)}${pill(h.tp)}</td><td>${n(h.q)} × ${n(h.a)}<small>Cost ${fm(h.c)}</small></td></tr>`).join('')||'<tr><td colspan="5" class="empty">No holdings match.</td></tr>'}
 const PAGES={
- ov(){const t1=tot('fx',FX),t2=tot('cr',CR),o=S.ov,it=allocItems();
-  return head('Net worth overview','Hover any chart for exact values.')+`<div class="bar"><button class="btn" id="so">Sync from sheet</button><span class="lb" id="os">${esc(M.os||'')}</span></div>`+
-  `<div class="grid">${kpi('Invested amount',fm(o.invested),'','#f5b942')}${kpi('Total net worth',fm(o.net),'','#2dd4bf')}${kpi('Net worth ROI',pc(o.roi),tone(o.roi),'#60a5fa')}${kpi('Net profit',fm(o.profit),tone(o.profit),'#f472b6')}${kpi('Net idle cash',fm(o.idle),'','#a78bfa')}${kpi('Weekly ROI',pc(o.weekly),tone(o.weekly),'#fb923c')}</div>
-  <div class="two"><div class="card"><h3>Where the money sits</h3>${donut(it,[cmp(it.reduce((a,x)=>a+x.v,0)),'TOTAL'])}${legend(it)}</div>
-  <div class="card"><h3>Net worth trend</h3>${line(S.hist)}</div></div>
-  <div class="card"><h3>Invested vs current by department</h3>${bars([{l:'PSX',a:n(S.psx.invested),b:psxCur(),c:'#2dd4bf'},{l:'Forex',a:t1.inv,b:t1.cur,c:'#60a5fa'},{l:'Crypto',a:t2.inv,b:t2.cur,c:'#a78bfa'}],900,230)}</div>
+ ov(){const v=wv(),o=v.ov,it=allocItems(v.al),W=S.weeks,tt=it.reduce((a,x)=>a+x.v,0),c2=tot('cr',CR);
+  const sel=`<select id="wsel" aria-label="Week">${W.map((w,i)=>i).reverse().map(i=>`<option value="${i}" ${W[i][0]==v.d?'selected':''}>${esc(W[i][0])}${i==W.length-1?' (latest)':''}</option>`).join('')}</select>`;
+  return head('Net worth overview','Week of '+esc(v.d)+'. Hover any chart for exact values.')+
+  `<div class="bar"><button class="btn" id="so">Sync from sheet</button>${sel}<span class="lb" id="os">${esc(M.os||'')}</span></div>
+  <div class="grid">${kpi('Invested amount',fm(o.invested),'','#f5b942')}${kpi('Total net worth',fm(o.net),'','#2dd4bf')}${kpi('Net worth ROI',pc(o.roi),tone(o.roi),'#60a5fa')}${kpi('Net profit',fm(o.profit),tone(o.profit),'#f472b6')}${kpi('Net idle cash',fm(o.idle),'','#a78bfa')}${kpi('Weekly ROI',pc(o.weekly),tone(o.weekly),'#fb923c')}</div>
+  <div class="two"><div class="card"><h3>Where the money sits</h3>${donut(it,[cmp(tt),'TOTAL'])}${legend(it)}</div>
+  <div class="card"><h3>Net worth trend</h3>${line(W.map(w=>[lab(w[0]),w[9]]))}</div></div>
+  ${v.last?`<div class="card" style="margin-bottom:14px"><h3>Invested vs current by department</h3>${bars([{l:'PSX',a:n(S.psx.invested),b:n(v.al.psx),c:'#2dd4bf'},{l:'Forex',a:n(S.fxt.inv),b:n(v.al.forex),c:'#60a5fa'},{l:'Crypto',a:c2.inv,b:n(v.al.crypto),c:'#a78bfa'}],900,230)}</div>`:''}
+  ${mktHTML()}
   ${S.cap&&S.cap.length?`<div class="card" style="margin-top:14px"><h3>Capital movements</h3><div class="tw"><table><thead><tr><th>Date</th><th>Asset</th><th>Type</th><th>Amount</th><th style="text-align:left">Note</th></tr></thead><tbody>${S.cap.map(c=>`<tr><td>${esc(c[0])}</td><td>${esc(c[1])}</td><td>${esc(c[2])}</td><td>${fm(c[3])}</td><td style="text-align:left">${esc(c[4])}</td></tr>`).join('')}</tbody></table></div></div>`:''}`},
  psx(){
   const L=H(),p=S.psx,V=L.reduce((a,h)=>a+h.v,0),C=L.reduce((a,h)=>a+h.c,0),D=L.reduce((a,h)=>a+n(h.d),0),T=V-C,dp=V-D?D/(V-D)*100:0,tp=C?T/C*100:0,gap=n(p.kse)-n(p.you);
@@ -224,14 +238,16 @@ const PAGES={
    <div class="st3">${st("Day's P&L",D,dp)}${st('Total P&L',T,tp)}<div><small class="lb">Total cost</small><b>${fm(C)}</b><small class="lb">Invested capital</small></div></div>
    <div class="perf">PERFORMANCE VS BENCHMARK &nbsp; You <b class="${tone(p.you)}">${pc(p.you)}</b> vs KSE 100 <b class="${tone(p.kse)}">${pc(p.kse)}</b> &nbsp; ${gap>=0?'Trailing':'Ahead'} by <b>${Math.abs(gap).toFixed(1)}%</b> since Sep '26</div></div>
    <div class="card"><div class="tg"><button data-mode="h" class="${psxMode=='h'?'on':''}">Holding</button><button data-mode="s" class="${psxMode=='s'?'on':''}">Sector</button></div><span class="lb">ALLOCATION</span>${donut(it,[it.length,psxMode=='h'?'HOLDINGS':'SECTORS'])}${legend(it,5)}</div></div>
-  <div class="grid">${kpi('Initial deposit',fm(p.deposit),'','#2dd4bf')}${kpi('Invested amount',fm(p.invested),'','#60a5fa')}${kpi('Total dividends',fm(p.div),'','#f5b942')}${kpi('Free cash on brokers',fm(p.free),'','#f472b6')}</div>
+  <div class="grid">${kpi('Initial deposit',fm(p.deposit),'','#2dd4bf')}${kpi('Invested capital',fm(p.invested),'','#60a5fa')}${kpi('Portfolio value',fm(p.val),'','#a78bfa')}${kpi('Net P&L',fm(p.pnl),tone(p.pnl),'#fb923c')}${kpi('Total dividends',fm(p.div),'','#f5b942')}${kpi('Free cash on brokers',fm(p.free),'','#f472b6')}</div>
+  <p class="lb" style="margin:-4px 0 14px">These six cards follow the Executive sheet (week of ${esc(S.weeks[S.weeks.length-1][0])}). The card at the top and the holdings table use Investify prices from ${esc(p.upd)}, so the totals can differ slightly.</p>
   <div class="card" style="margin-bottom:14px"><h3>Cost vs market value</h3>${bars(L.map((h,i)=>({l:h.n,a:h.c,b:h.v,c:COL[i%8]})),900,240)}</div>
   <div class="two"><div class="card"><h3>Total P&amp;L by stock</h3>${hb(L.map(h=>({l:h.n,v:h.t})))}</div><div class="card"><h3>Day's P&amp;L by stock</h3>${hb(L.map(h=>({l:h.n,v:n(h.d)})))}</div></div>
   <div class="card"><div class="bar"><h3 style="margin:0;flex:1">Shares in hand</h3><select id="ss" aria-label="Sort"><option value="c">Custom order</option><option value="v">Market value</option><option value="d">Day's P&amp;L %</option><option value="t">Total P&amp;L %</option></select><input id="sq" placeholder="Search symbol, company or sector" value="${esc(psxQ)}"></div>
-  <div class="tw"><table><thead><tr><th>Holding</th><th>Market value</th><th>Day's P&amp;L</th><th>Total P&amp;L</th><th>Position</th></tr></thead><tbody id="hb">${rows()}</tbody></table></div></div>`},
- fx(){const t=tot('fx',FX),r=roi(t.inv,t.cur);
+  <div class="tw"><table><thead><tr><th>Holding</th><th>Market value</th><th>Day's P&amp;L</th><th>Total P&amp;L</th><th>Position</th></tr></thead><tbody id="hb">${rows()}</tbody></table></div></div>
+  ${dataCard()}`},
+ fx(){const t=S.fxt,r=roi(t.inv,t.cur);
   return head('Forex platforms','Exness, IBKR, Funded Squad and PMEX in PKR.')+
-  `<div class="grid">${kpi('Total invested',fm(t.inv),'','#60a5fa')}${kpi('Total current',fm(t.cur),'','#2dd4bf')}${kpi('Total free cash',fm(t.free),'','#f5b942')}${kpi('Forex ROI',pc(r),tone(r),'#f472b6')}</div>${grp('fx',FX)}
+  `<div class="grid">${kpi('Total invested',fm(t.inv),'','#60a5fa')}${kpi('Total current',fm(t.cur),'','#2dd4bf')}${kpi('Total free cash',fm(t.free),'','#f5b942')}${kpi('Forex ROI',pc(r),tone(r),'#f472b6')}${kpi('Net P&L',fm(t.pnl),tone(t.pnl),'#fb923c')}</div>${grp('fx',FX)}
   <div class="two">${FX.map(k=>plat(k,S.fx[k],k=='ibkr'?S.fx.ibkr.hold:null)).join('')}</div>`},
  cr(){const t=tot('cr',CR),r=roi(t.inv,t.cur);
   return head('Crypto platforms','Exchanges and wallets.')+
@@ -246,7 +262,9 @@ const PAGES={
  edit(){
   const I3=[['Invested amount','inv'],['Current amount','cur'],['Free cash','free']],I2=I3.slice(0,2);
   const G=[['Overview','ov',[['Invested amount','invested'],['Total net worth','net'],['Net worth ROI %','roi'],['Net profit','profit'],['Net idle cash','idle'],['Weekly ROI %','weekly']]],
-   ['PSX portfolio','psx',[['Initial deposit','deposit'],['Invested amount','invested'],['Total dividends','div'],['Free cash on brokers','free'],['Last updated','upd',1],['Your return % vs benchmark','you'],['KSE 100 return %','kse']]],
+   ['Allocation (as in sheet)','alloc',[['PSX','psx'],['Forex','forex'],['Crypto','crypto'],['IBCW','ibcw'],['Idle cash','cash']]],
+   ['Forex totals (sheet)','fxt',[['Invested','inv'],['Current','cur'],['Free cash','free'],['Net P&L','pnl']]],
+   ['PSX portfolio','psx',[['Initial deposit','deposit'],['Invested capital','invested'],['Portfolio value (sheet)','val'],['Net P&L (sheet)','pnl'],['Total dividends','div'],['Free cash on brokers','free'],['Last updated','upd',1],['Your return % vs benchmark','you'],['KSE 100 return %','kse']]],
    ...FX.map(k=>[NAME[k],'fx.'+k,k=='funded'?I2:I3]),...CR.map(k=>[NAME[k],'cr.'+k,I3])];
   const list=(t,p,cols,hint)=>`<div class="card"><h3>${t}</h3><p class="lb" style="margin-bottom:8px">${hint}</p>${gp(p).map((h,i)=>`<div class="row">${cols.map(([k,ty])=>`<input ${ty?'':'type="number" step="any"'} data-p="${p}.${i}.${k}" value="${esc(h[k])}" aria-label="${k}">`).join('')}<button class="btn alt" data-del="${p}.${i}" aria-label="Remove">x</button></div>`).join('')}<button class="btn alt" data-add="${p}">Add holding</button></div>`;
   return head('Edit your numbers','Changes save in this browser and update every chart. Export a backup before clearing browser data.')+
@@ -300,19 +318,129 @@ async function syncOv(q){
   const A=await gq(EID,'ASSET_ALLOCATION'),R=A.filter(r=>parseD(r[0])&&nv(r[9]));
   if(!R.length)throw 0;
   const L=R[R.length-1],comp=[1,2,3,4,5].reduce((a,i)=>a+nv(L[i]),0);
-  S.hist=R.map(r=>{const d=new Date(parseD(r[0]));return[d.getDate()+' '+MON[d.getMonth()],nv(r[9])]});
+  S.weeks=R.map(r=>[String(r[0]),nv(r[1]),nv(r[2]),nv(r[3]),nv(r[4]),nv(r[5]),nv(r[6]),nv(r[7]),nv(r[8]),nv(r[9]),wk(r[10]),nv(r[11])]);
+  S.alloc={psx:nv(L[1]),forex:nv(L[2]),crypto:nv(L[3]),ibcw:nv(L[4]),cash:nv(L[5])};
   Object.assign(S.ov,{invested:nv(L[7]),net:nv(L[9]),roi:nv(L[11]),profit:nv(L[8]),idle:nv(L[5]),weekly:wk(L[10])});
   try{const W=await gq(EID,'WEEKLY_SNAPSHOT'),blk=h=>{const i=W.findIndex(r=>String(r[0]).trim()==h&&String(r[1]).trim()=='CV'),o={};
     if(i>=0)for(let j=i+1;j<W.length&&String(W[j][0]).trim();j++)o[String(W[j][0]).trim().toLowerCase()]=[nv(W[j][1]),nv(W[j][2])];return o};
    const f=blk('Forex'),p=blk('PSX');
    [['exness','exness'],['funded','funded a/c'],['pmex','pmex'],['ibkr','ibkr']].forEach(([k,x])=>{if(f[x]&&f[x][0]>0){S.fx[k].cur=f[x][0];if(S.fx[k].free!=null&&f[x][1]>0)S.fx[k].free=f[x][1]}});
-   if(p.total&&p.total[1])S.psx.free=p.total[1]}catch(e){}
+   if(p.total&&p.total[1])S.psx.free=p.total[1];
+   const D=W.filter(r=>parseD(r[0])),mx=Math.max(...D.map(r=>parseD(r[0]))),lt=D.filter(r=>parseD(r[0])==mx),g=b=>lt.find(r=>String(r[1]).trim().toUpperCase()==b),ps=g('PSX'),fo=g('FOREX');
+   if(ps&&nv(ps[5])){S.psx.val=nv(ps[5]);S.psx.invested=nv(ps[4]);S.psx.free=nv(ps[3]);S.psx.pnl=nv(ps[6])}
+   if(fo&&nv(fo[5]))S.fxt={inv:nv(fo[4]),cur:nv(fo[5]),free:nv(fo[3]),pnl:nv(fo[6])}}catch(e){}
   try{const C=await gq(EID,'CAPITAL_MOVEMENTS'),c=C.filter(r=>parseD(r[0])).map(r=>[String(r[0]),String(r[1]),String(r[2]),nv(r[3]),String(r[5]||'')]);if(c.length)S.cap=c}catch(e){}
   save();
   setMsg('os','Synced. Latest row: '+L[0]+(Math.abs(comp-nv(L[9]))>nv(L[9])*.01?'. Note: net worth in that row is Rs '+Math.round(nv(L[9])).toLocaleString('en-US')+' but its parts add to Rs '+Math.round(comp).toLocaleString('en-US')+', so check the sheet.':''));
   if(page=='ov'||page=='fx')show(page)
  }catch(e){if(!q)setMsg('os',ERR)}
 }
+
+
+/* ---------- WEEK VIEW + MARKET STATS ---------- */
+let wsel=-1;
+const lab=d=>{const t=new Date(parseD(d));return t.getDate()+' '+MON[t.getMonth()]};
+const wv=()=>{const W=S.weeks,i=wsel<0||wsel>=W.length?W.length-1:wsel,w=W[i],last=i==W.length-1;
+ return last?{ov:S.ov,al:S.alloc,d:w[0],last}:{ov:{invested:w[7],net:w[9],roi:w[11],profit:w[8],idle:w[5],weekly:w[10]},al:{psx:w[1],forex:w[2],crypto:w[3],ibcw:w[4],cash:w[5]},d:w[0],last}};
+const kse=L=>{const c=L.map(r=>String(r[7]==null?'':r[7]).trim()),nx=p=>{const i=c.findIndex(x=>x.toUpperCase().indexOf(p)==0);return i>=0?c[i+1]||'':''};return{idx:c[0],vol:nx('KSE100 - VOL'),rng:nx('LOW'),chg:nx('DAILY')}};
+function mktHTML(){
+ const R=TB.market.r,ld=R.length?R[R.length-1][0]:'',L=R.filter(r=>r[0]==ld&&/^[A-Za-z]{2,8}$/.test(String(r[1]).trim()));
+ if(!L.length)return'';
+ const k=kse(L),X=L.map(r=>({a:String(r[1]).trim(),o:nv(r[2]),h:nv(r[3]),l:nv(r[4]),c:nv(r[5]),v:r[6],pe:nv(r[8]),pb:nv(r[9]),dy:nv(r[10]),eps:nv(r[12])}));
+ return `<h3 style="margin:22px 0 10px">Market data, ${esc(ld)}</h3>
+ <div class="grid">${kpi('KSE-100 index',esc(k.idx||'n/a'),'','#2dd4bf')}${kpi('Daily change',esc(k.chg||'n/a'),tone(nv(k.chg)),'#60a5fa')}${kpi('KSE-100 volume',esc(k.vol||'n/a'),'','#f5b942')}${kpi('Day range',esc(k.rng||'n/a'),'','#f472b6')}</div>
+ <div class="two"><div class="card"><h3>Close vs open %</h3>${hb(X.map(x=>({l:x.a,v:x.o?(x.c-x.o)/x.o*100:0})),v=>pc(v))}</div>
+ <div class="card"><h3>P/E ratio</h3>${hb(X.map((x,i)=>({l:x.a,v:x.pe,c:COL[i%8]})),v=>v.toFixed(2))}</div>
+ <div class="card"><h3>Dividend yield %</h3>${hb(X.map((x,i)=>({l:x.a,v:x.dy,c:COL[i%8]})),v=>v.toFixed(2)+'%')}</div></div>
+ <div class="card" style="margin-bottom:14px"><div class="tw"><table><thead><tr><th>Asset</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>Volume</th><th>P/E</th><th>P/B</th><th>Div yield</th><th>EPS</th></tr></thead><tbody>${X.map(x=>`<tr><td><b>${esc(x.a)}</b></td><td>${x.o}</td><td>${x.h}</td><td>${x.l}</td><td>${x.c}</td><td>${esc(x.v)}</td><td>${x.pe.toFixed(2)}</td><td>${x.pb.toFixed(2)}</td><td>${x.dy.toFixed(2)}%</td><td>${x.eps}</td></tr>`).join('')}</tbody></table></div></div>`}
+
+/* ---------- PSX DATA TABLES (editable, synced from the Markets sheet) ---------- */
+const TKEY='musab_tables_v1',TL=['market','daily','weekly','monthly','quarterly','yearly','fipi'];
+const DH=['DATE','SOURCE','CATEGORY','HEADLINE','DETAIL / NOTES','PRIORITY','AFFECTS','PORTFOLIO IMPACT','ACTION REQUIRED','STATUS'],QH=['Q'].concat(DH.slice(1));
+const row10=r=>Array.from({length:10},(_,c)=>String(r[c]==null?'':r[c]));
+const gen=re=>rows=>{const i=rows.findIndex(r=>re.test(String(r[0]).trim()));if(i<0)return;const o=[];
+ for(let j=i+1;j<rows.length;j++){const r=rows[j];if(String(r[0]).trim().charAt(0)=='▸')break;if(r.slice(0,9).every(x=>String(x).trim()===''))continue;o.push(row10(r))}
+ return{h:rows[i].slice(0,10).map(String),r:o}};
+const TD={
+ market:{t:'Market Data',sh:'📈 Market Data',h0:['DATE','ASSET','OPEN','HIGH','LOW','CLOSE','VOLUME','KSE100','P/E','P/B','DIV YIELD %','BVPS','EPS'],
+  p:rows=>{const i=rows.findIndex(r=>String(r[1]).trim()=='DATE'&&String(r[2]).trim()=='ASSET');if(i<0)return;const o=[];
+   for(let j=i+1;j<rows.length&&String(rows[j][1]==null?'':rows[j][1]).trim();j++)o.push([1,2,3,4,5,6,7,8,10,11,12,13,14].map(c=>String(rows[j][c]==null?'':rows[j][c])));
+   return{h:TD.market.h0,r:o}},
+  r0:[['Nov 6, 2026','MEBL','551.98','552.50','544.61','550.25','539,664','173,887','7.06','2.08','5.54','208.6','41.25'],
+  ['Nov 6, 2026','UBL','425.56','431.00','424.5','425.34','1,033,824','KSE100 - VOLUME','7.26','2.08','5.54','208.6','46'],
+  ['Nov 6, 2026','BOP','31.28','31.48','30.8','30.94','21,284,920','195,810,882','5.74','1.06','9.16','32.11','4.44'],
+  ['Nov 6, 2026','PSX','42.39','42.39','40.8','41.48','645,829','LOW & HIGH','14.81','2.49','2.53','16.64','2.8'],
+  ['Nov 6, 2026','FFC','565.7','565.70','557','562.62','921,052','172,809.89 - 174,369.19','8.44','2.73','7.15','200.75','48.77'],
+  ['Nov 6, 2026','LUCK','430','433.00','424','427.23','990,631','DAILY CHANGE','7.03','1.32','1.06','323.48','60.78'],
+  ['Nov 6, 2026','TISL','4.71','5.63','4.68','5.03','140,783,607','0.85%','50.3','4.30','-','1.17','0.1']]},
+ daily:{t:'Daily Data',sh:'📰 Daily Report',h0:DH,p:gen(/^(DATE|Q)$/),r0:NEWS0.map(x=>[x[0],x[6],'',x[2],x[3],(PRN[x[4]]||PRN.L)[0].toUpperCase(),x[1],'','',x[5]=='D'?'Done':'Pending'])},
+ weekly:{t:'Weekly Data',sh:'📅 Weekly Report',h0:DH,p:gen(/^(DATE|Q)$/),r0:[
+  ['06/11/2026','FIPI & LIPI_02-06_NOV_26','FIPI & LIPI','Weekly Fipi & Lipi Uploaded','Required Data for Weekly Report','LOW','All PSX','','','Pending'],
+  ['30/10/2026','FIPI & LIPI_26-30_OCT_26','FIPI & LIPI','Weekly Fipi & Lipi Uploaded','Required Data for Weekly Report','LOW','All PSX','','','Pending'],
+  ['23/10/2026','FIPI & LIPI_19-23_OCT_26','FIPI & LIPI','Weekly Fipi & Lipi Report is uploaded','Required Data for Weekly Report','LOW','All PSX','Foreigners sold a net Rs 1.56B (about Rs 1.76B in banks), bearish for banks.','Hold & Watch','Actioned']]},
+ monthly:{t:'Monthly Data',sh:'📅 Monthly Report',h0:DH,p:gen(/^(DATE|Q)$/),r0:[
+  ['31/10/2026','FIPI & LIPI_OCT_2026','FIPI / LIPI','','','','','','','Pending'],
+  ['15/10/2026','https://www.sbp.org.pk/assets/document/auction-tbills.pdf','SBP','Government of Pakistan Market Treasury Bills (MTBs) Auction Result','','LOW','All PSX','','','Pending'],
+  ['30/09/2026','https://www.sbp.org.pk/assets/document/publications/Inflation_Monitor_-_September_2026.pdf','SBP','Monthly Inflation Monitor Sep 2026','Required Data For Monthly from SBP.org.pk','HIGH','All PSX','','','Pending']]},
+ quarterly:{t:'Quarterly Data',sh:'📊 Quarterly Report',h0:QH,p:gen(/^(DATE|Q)$/),r0:[
+  ['Q3','https://dps.psx.com.pk/download/document/288268.pdf','PSX Stock','PSX Quarterly Report','','','','','',''],
+  ['Q3','https://dps.psx.com.pk/download/document/287948.pdf','UBL','UBL Quarterly Report','','','','','',''],
+  ['Q3','https://dps.psx.com.pk/download/document/287804.pdf','FFC','FFC Quarterly Report','','','','','',''],
+  ['Q3','https://dps.psx.com.pk/download/document/288589.pdf','FFC','FFC Quarterly Report CBS','','','','','','']]},
+ yearly:{t:'Yearly Data',sh:'📆 Yearly Report',h0:'ABCDEFGHIJ'.split(''),
+  p:rows=>({h:'ABCDEFGHIJ'.split(''),r:rows.slice(2).filter(r=>r.some(x=>String(x).trim()!=='')).map(row10)}),r0:[
+  ['YEAR','KSE-100 RETURN%','YOUR PSX RETURN%','FOREX P&L (USD)','CRYPTO P&L (USD)','TOTAL RETURN%','VS BENCHMARK','DIVIDENDS RECV','CGT PAID','NET RETURN%'],['2026'],['2025'],['2024'],
+  ['COMPANY','BROKER','FY','DPS (PKR)','SHARES HELD','TOTAL DIVIDEND','EX-DATE','PAYMENT DATE','TAX DEDUCTED','NET RECEIVED'],
+  ['FFC','AKDSL','2026','','78'],['BOP','FINQALAB','2026','','383'],['MEBL','FINQALAB','2026','','83'],['LUCK','FINQALAB/SFE','2026','','37'],['PSX Ltd','AKDSL','2026','','987'],['TISL','UNCONFIRMED','2026','','232'],['UBL','FINQALAB','2026','','144']].map(row10)},
+ fipi:{t:'FIPI & LIPI',sh:'📋FIPI & LIPI REPORTS',h0:['DATE','ANALYSIS','RESOURCE'],
+  p:rows=>{const i=rows.findIndex(r=>String(r[0]).trim()=='DATE');if(i<0)return;return{h:['DATE','ANALYSIS','RESOURCE'],r:rows.slice(i+1).filter(r=>r.slice(0,3).some(x=>String(x).trim()!=='')).map(r=>[0,1,2].map(c=>String(r[c]==null?'':r[c])))}},
+  r0:[['Weekly','','FIPI & LIPI_02-06_NOV_26'],['11/06/2026','','FIPI & LIPI_06_NOV_26'],
+  ['Weekly','Foreigners sold a net Rs 10.56B, and banks took Rs 3.43B of it, about two thirds of ordinary-market selling once the 30 Oct block is removed, so bearish for UBL, BOP and MEBL.','FIPI & LIPI_26-30_OCT_26'],
+  ['10/30/2026','Foreigners sold Rs 6.22B, but Rs 5.95B of it was in the negotiated deal market (NDM) and "other organizations" bought it (+Rs 6.77B). Ordinary-market foreign selling was only about Rs 472M (Rs 316M in banks).','FIPI & LIPI_30_OCT_26'],
+  ['10/29/2026','Foreigners sold Rs 1.23B (Rs 948M in banks), and companies (+Rs 581M), mutual funds (+Rs 474M) and individuals (+Rs 465M) absorbed it.','FIPI & LIPI_29_OCT_26'],
+  ['10/28/2026','Foreigners sold Rs 624M (Rs 452M in banks). Individuals (+Rs 933M) and companies (+Rs 639M) bought, while insurers (-Rs 1.35B) and mutual funds (-Rs 553M) sold.','FIPI & LIPI_28_OCT_26'],
+  ['10/27/2026','Foreigners sold Rs 1.10B (Rs 729M in banks), and DFIs (+Rs 310M) and mutual funds (+Rs 427M) absorbed it.','FIPI & LIPI_27_OCT_26'],
+  ['10/26/2026','Foreigners sold a net Rs 1.38B (Rs 983M in banks), and DFIs (+Rs 533M) and mutual funds (+Rs 600M) bought it, so bearish for banks.','FIPI & LIPI_26_OCT_26'],
+  ['Weekly','Foreigners sold a net Rs 1.56B (about Rs 1.76B in banks), bearish for banks.','FIPI & LIPI_19-23_OCT_26'],
+  ['10/23/2026','Foreigners sold Rs 417M (Rs 413M in banks), bearish for banks.','FIPI & LIPI_23_OCT_26']]}
+};
+let TB={};try{TB=JSON.parse(localStorage.getItem(TKEY))||{}}catch(e){}
+TL.forEach(k=>{if(!TB[k]||!TB[k].r)TB[k]={h:TD[k].h0,r:clone(TD[k].r0),dirty:false}});
+let tsv,psxTbl='market',tq='';
+const saveT=()=>{try{localStorage.setItem(TKEY,JSON.stringify(TB))}catch(e){}};
+const pad=(r,k)=>Array.from({length:k},(_,i)=>r[i]==null?'':r[i]);
+function tblGrid(){
+ const t=TB[psxTbl],q=tq.toLowerCase(),rs=t.r.map((r,i)=>[r,i]).filter(([r])=>!q||r.join(' ').toLowerCase().includes(q));
+ return `<div class="tw" style="max-height:540px;overflow:auto"><table class="et"><thead><tr>${t.h.map(x=>`<th>${esc(x)}</th>`).join('')}<th></th></tr></thead><tbody>${rs.map(([r,i])=>`<tr>${pad(r,t.h.length).map((v,c)=>`<td><span contenteditable="true" spellcheck="false" data-r="${i}" data-c="${c}">${esc(v)}</span>${/^https?:\/\/\S+$/.test(String(v))?` <a href="${esc(v)}" target="_blank" rel="noopener" aria-label="Open link">↗</a>`:''}</td>`).join('')}<td><button class="x1" data-tdel="${i}" aria-label="Delete row">×</button></td></tr>`).join('')||`<tr><td colspan="${t.h.length+1}" class="empty">No rows.</td></tr>`}</tbody></table></div><p class="lb" style="margin-top:6px">${rs.length} of ${t.r.length} rows. Click any cell to edit. Edits stay in this browser.</p>`}
+const tblBar=()=>`<div class="bar"><input id="tq" placeholder="Search this table" value="${esc(tq)}"><button class="btn alt" data-tadd>Add row</button><button class="btn alt" data-tlinks>Downloadable links</button><button class="btn alt" data-tcsv>Download CSV</button><button class="btn" data-tsync>Sync from sheet</button><span class="lb" id="tm">${esc(M.tm||'')}</span></div>`;
+const dataCard=()=>`<div class="card" style="margin-top:14px"><div class="bar"><h3 style="margin:0;flex:1">PSX data tables</h3><select id="tsel" aria-label="Data table">${TL.map(k=>`<option value="${k}" ${k==psxTbl?'selected':''}>${TD[k].t}</option>`).join('')}</select></div>${tblBar()}<div id="tg">${tblGrid()}</div></div>`;
+async function syncTbl(k,q){
+ const d=TD[k];if(q&&TB[k].dirty)return;
+ if(!q)setMsg('tm','Syncing...');
+ try{const o=d.p(await gq(SID,d.sh));if(!o||!o.r.length)throw 0;
+  TB[k]={h:o.h,r:o.r,dirty:false};saveT();
+  if(k==psxTbl)setMsg('tm','Synced '+o.r.length+' rows');
+  if(page=='psx'&&k==psxTbl&&$('#tg'))$('#tg').innerHTML=tblGrid();
+  if(page=='ov'&&k=='market')show('ov')
+ }catch(e){if(!q)setMsg('tm',ERR)}
+}
+function dlCSV(){const t=TB[psxTbl],q=x=>'"'+String(x).replace(/"/g,'""')+'"',c=[t.h].concat(t.r.map(r=>pad(r,t.h.length))).map(r=>r.map(q).join(',')).join('\n');
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+c],{type:'text/csv'}));a.download=psxTbl+'.csv';a.click()}
+/* downloadable links window */
+const MD=$('#md');let mlinks=[];
+const lastWd=()=>{const d=new Date(),p=x=>String(x).padStart(2,'0');while(d.getDay()%6==0)d.setDate(d.getDate()-1);return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())};
+const PDFL=d=>[['Off Market Transaction','omtpdf/'+d+'.pdf'],['Closing Rate Market Summary','closing_rates/'+d+'.pdf'],['Daily Quotations','quote/'+d+'.pdf'],['Stock Market Report','market_report/dailystockmkt.pdf'],['KSE 100 Index Companies','text/kse100.lis.Z'],['ND Accepted','nd_accepted/'+d+'.pdf'],['ND Rejected','nd_rejected/'+d+'.pdf']].map(([l,p])=>[l,'https://dps.psx.com.pk/download/'+p]);
+const lrows=L=>L.map(([l,u])=>`<div class="lr2"><span>${esc(l)}</span><a class="btn alt" href="${esc(u)}" target="_blank" rel="noopener">Open</a></div>`).join('')||'<p class="empty">No links found in this table.</p>';
+function openLinks(){
+ const t=TB[psxTbl],seen={},L=[],lc=t.h.findIndex(x=>/HEADLINE|ASSET|ANALYSIS|CATEGORY/i.test(x));
+ t.r.forEach(r=>{const lb=String(r[lc>=0?lc:0]||r[0]||'').slice(0,90);r.forEach(c=>(String(c).match(/https?:\/\/[^\s,;)"']+/g)||[]).forEach(u=>{if(!seen[u]){seen[u]=1;L.push([lb,u])}}))});
+ mlinks=L.map(x=>x[1]);const dd=lastWd(),pg=psxTbl=='market'||psxTbl=='daily';
+ $('#mt').textContent=TD[psxTbl].t+' links';
+ $('#mx').innerHTML=(pg?`<p class="lb">PSX daily files for <input type="date" id="mdt" value="${dd}" style="width:auto"></p><div id="mgl">${lrows(PDFL(dd))}</div><h3 style="margin:14px 0 6px">Links in this table (${L.length})</h3>`:`<p class="lb">${L.length} links found in this table.</p>`)+lrows(L)+(L.length?'<div class="bar" style="margin-top:10px"><button class="btn alt" id="mcopy">Copy all links</button></div>':'');
+ MD.hidden=false}
+MD.addEventListener('click',e=>{const t=e.target;if(t===MD||t.id=='mc')MD.hidden=true;if(t.id=='mcopy'&&navigator.clipboard){navigator.clipboard.writeText(mlinks.join('\n'));t.textContent='Copied'}});
+MD.addEventListener('input',e=>{if(e.target.id=='mdt'&&e.target.value)$('#mgl').innerHTML=lrows(PDFL(e.target.value))});
+document.addEventListener('keydown',e=>{if(e.key=='Escape')MD.hidden=true});
 
 /* ---------- ROUTER ---------- */
 const TABS=[['ov','Overview'],['psx','PSX Portfolio'],['fx','Forex'],['cr','Crypto'],['news','News'],['edit','Edit']];
@@ -327,6 +455,8 @@ $('#nav').onclick=e=>{if(e.target.dataset.t){show(e.target.dataset.t);scrollTo(0
 
 app.addEventListener('input',e=>{
  const t=e.target;
+ if(t.dataset.c!=null&&t.isContentEditable){const r=TB[psxTbl].r[+t.dataset.r];if(r){while(r.length<=+t.dataset.c)r.push('');r[+t.dataset.c]=t.textContent;TB[psxTbl].dirty=true;clearTimeout(tsv);tsv=setTimeout(saveT,400)}return}
+ if(t.id=='tq'){tq=t.value;$('#tg').innerHTML=tblGrid();return}
  if(t.id=='sq'){psxQ=t.value;$('#hb').innerHTML=rows();return}
  if(t.id=='nq'){nq=t.value;$('#nl').innerHTML=newsHTML();return}
  const p=t.dataset.p;if(!p)return;
@@ -334,14 +464,22 @@ app.addEventListener('input',e=>{
  o[last]=t.type=='number'?n(t.value):t.value;save();
  if($('#pv'))$('#pv').innerHTML=prevHTML();
 });
+app.addEventListener('paste',e=>{if(e.target.isContentEditable){e.preventDefault();document.execCommand('insertText',false,(e.clipboardData||window.clipboardData).getData('text'))}});
 app.addEventListener('change',e=>{
  const t=e.target;
+ if(t.id=='wsel'){wsel=+t.value;show('ov')}
+ if(t.id=='tsel'){psxTbl=t.value;tq='';$('#tq').value='';setMsg('tm','');$('#tg').innerHTML=tblGrid()}
  if(t.id=='ss'){psxSort=t.value;$('#hb').innerHTML=rows()}
  if(t.id=='file'){const f=t.files[0];if(f)f.text().then(x=>{try{S=JSON.parse(x);save();show('edit')}catch(err){alert('That file is not valid JSON.')}})}
 });
 app.addEventListener('click',e=>{
  const t=e.target;
  if(t.dataset.mode){psxMode=t.dataset.mode;show('psx')}
+ if(t.dataset.tadd!=null&&t.hasAttribute('data-tadd')){TB[psxTbl].r.push(Array(TB[psxTbl].h.length).fill(''));TB[psxTbl].dirty=true;saveT();$('#tg').innerHTML=tblGrid()}
+ if(t.dataset.tdel!=null){TB[psxTbl].r.splice(+t.dataset.tdel,1);TB[psxTbl].dirty=true;saveT();$('#tg').innerHTML=tblGrid()}
+ if(t.hasAttribute('data-tcsv'))dlCSV();
+ if(t.hasAttribute('data-tlinks'))openLinks();
+ if(t.hasAttribute('data-tsync')){if(!TB[psxTbl].dirty||confirm('Replace your edits in this table with the sheet data?')){TB[psxTbl].dirty=false;syncTbl(psxTbl)}}
  if(t.dataset.more){const l=t.previousElementSibling;l.classList.toggle('open');t.textContent=l.classList.contains('open')?'Show less':'+'+l.querySelectorAll('.x').length+' more'}
  if(t.dataset.nf){nf=t.dataset.nf;show('news')}
  if(t.id=='sn')syncNews();
@@ -349,13 +487,13 @@ app.addEventListener('click',e=>{
  if(t.dataset.add){gp(t.dataset.add).push(t.dataset.add=='psx.hold'?{n:'NEW',nm:'New holding',s:'Other',q:0,a:0,p:0,d:0}:{n:'NEW',v:0});save();show('edit')}
  if(t.dataset.del){const ks=t.dataset.del.split('.'),i=+ks.pop();gp(ks.join('.')).splice(i,1);save();show('edit')}
  if(t.id=='sync'){const a=tot('fx',FX),b=tot('cr',CR),o=S.ov,cur=psxCur()+a.cur+b.cur;
-  o.invested=Math.round(n(S.psx.invested)+a.inv+b.inv);o.net=Math.round(cur+o.idle);o.profit=Math.round(cur-o.invested);o.roi=+(o.invested?o.profit/o.invested*100:0).toFixed(2);save();show('edit')}
+  o.invested=Math.round(n(S.psx.invested)+a.inv+b.inv);o.idle=Math.round(n(S.alloc.cash));o.net=Math.round(Object.values(S.alloc).reduce((x,y)=>x+n(y),0));o.profit=Math.round(cur-o.invested);o.roi=+(o.invested?o.profit/o.invested*100:0).toFixed(2);save();show('edit')}
  if(t.id=='exp'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,2)],{type:'application/json'}));a.download='portfolio.json';a.click()}
  if(t.id=='imp')$('#file').click();
  if(t.id=='rst'&&confirm('Reset all values to defaults?')){S=clone(DEF);save();show('edit')}
 });
 show(location.hash.slice(1)||'ov');
-if(AUTO){syncOv(1);syncNews(1)}
+if(AUTO){syncOv(1);syncNews(1);TL.forEach(k=>syncTbl(k,1))}
 </script>
 </body>
 </html>
